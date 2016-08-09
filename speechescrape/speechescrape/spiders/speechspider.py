@@ -12,9 +12,10 @@ class SpeechSpider(scrapy.Spider):
                   "http://millercenter.org/president/kennedy/speeches/speech-5742"]   # first state of union
 
     def parse(self, response):
-        for sel in response.xpath('//article'):
+        """Parse HTML response."""
             # item = SpeechescrapeItem()       # probably not going to store it in a dict just yet
-            title = sel.xpath("//div/h1[@id='amprestitle']/text()").extract()
-            author = sel.xpath("//div[@id='innercontent']/h2/text()").extract()
-            text = sel.xpath("//div[@id='transcript']/p/text()").extract()
-            yield title, author, text
+        yield {
+            'title': response.xpath("//div/h1[@id='amprestitle']/text()").extract(),
+            'author': response.xpath("//div[@id='innercontent']/h2/text()").extract(),
+            'text': response.xpath("//div[@id='transcript']/p/text()").extract()
+            }
