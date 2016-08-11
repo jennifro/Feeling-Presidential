@@ -14,6 +14,9 @@ BOT_NAME = 'speechescrape'
 SPIDER_MODULES = ['speechescrape.spiders']
 NEWSPIDER_MODULE = 'speechescrape.spiders'
 
+################################################
+# Add once have a working spider to scrape the page
+
 # FEED_EXPORTERS = {
 #     'jsonlines': 'scrapy.contrib.exporter.JsonLinesItemExporter',
 #     }
@@ -21,6 +24,7 @@ NEWSPIDER_MODULE = 'speechescrape.spiders'
 # FEED_FORMAT = 'jsonlines'
 # FEED_URI = "speeches.json"
 
+################################################
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'speechescrape (+http://www.yourdomain.com)'

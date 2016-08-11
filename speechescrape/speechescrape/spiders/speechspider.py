@@ -14,6 +14,7 @@ class SpeechSpider(scrapy.Spider):
     def parse(self, response):
         """Parse HTML response."""
             # item = SpeechescrapeItem()       # probably not going to store it in a dict just yet
+
         yield {
             'title': response.xpath("//div/h1[@id='amprestitle']/text()").extract(),
             'author': response.xpath("//div[@id='innercontent']/h2/text()").extract(),
