@@ -1,26 +1,29 @@
 from speechinfo import get_speech_text
-from collection import defaultdict
 import nltk.classify.util
 from nltk.classify import NaiveBayesClassifier
 
 #############################################
-# IMPORT THE LIST OF ALL SPEECH TEXTS HERE!!
+# MOST OF THIS IS TRASH PROBABLY, MAYBE, WE'LL SEE
 
-def speech_feats(all_speeches):
-    all_speeches = ''.join(get_speech_text())
-
-    return dict([(word, True) for word in )
+all_speeches = get_speech_text()  # list of strings
+big_string = (''.join(all_speeches)).split()
 
 
-def evaluate_classifier():
-    # trainer = .67 * len(allspeeches)
-    # tester = .33 * len(allspeeches)
+def bag_o_words(words):
+    """Return bag of words from a list of strings."""
 
-    # make a random # of allspeches the trainer set
-    # same with tester
+    return dict([(word, True) for word in words])
 
-print 'train on %d speeches, test on %d speeches' % (len(trainer), len(tester))
+speech_corpus = (bag_o_words(big_string))
+trainer_cut = len(speech_corpus)*2/3
 
-classifer = NaiveBayesClassifier.train(trainer)
+
+#### this needs to be a dictionary #####
+trainer = big_string[:trainer_cut]
+tester = big_string[trainer_cut:]
+
+print 'train on %d words, test on %d words' % (len(trainer), len(tester))
+
+classifier = NaiveBayesClassifier.train(trainer)
 print 'accuracy:', nltk.classify.util.accuracy(classifier, tester)
-classifier.show_most_informative_features()    
+classifier.show_most_informative_features()

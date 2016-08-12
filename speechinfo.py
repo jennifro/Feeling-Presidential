@@ -10,17 +10,20 @@ def get_speech_text():
 
     all_speech_info = json.load(data)
 
-    # Get all speechtexts as a formatted lower-case ascii string in single list
-
     full_corpora = []
     excess = string.whitespace
-    change = string.maketrans(excess, ' '*len(excess))
+    clean_spaces = string.maketrans(excess, ' '*len(excess))
 
     for x in range(len(all_speech_info)):
         text = (''.join(all_speech_info[x]['speech'])).encode('ascii', 'ignore').lower()
-        text = text.translate(change)
-        text = ' '.join(text.split())
+        text = text.translate(clean_spaces)
+        text = text.split()
 
         full_corpora.append(text)
 
     return full_corpora
+
+
+def get_speech_info():
+    """ """
+    pass
