@@ -14,6 +14,8 @@ def bag_o_words(words):
 
     return dict([(word, True) for word in words])
 
+negwords = open('negative-speech.txt')
+
 speech_corpus = (bag_o_words(big_string))
 trainer_cut = len(speech_corpus)*2/3
 
