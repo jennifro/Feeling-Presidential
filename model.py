@@ -9,7 +9,7 @@ db = SQLAlchemy()
 DB_URI = 'postgresql:///speeches'
 
 
-class President(object):
+class President(db.Model):
     """docstring for President"""
 
     __tablename__ = 'presidents'
@@ -25,7 +25,7 @@ class President(object):
         return '<ID={}, Name={}>'.format(self.id, self.name)
 
 
-class Speech(object):
+class Speech(db.Model):
     """docstring for Speeches"""
 
     __tablename__ = 'speeches'
@@ -45,7 +45,7 @@ class Speech(object):
         return '<ID={}, Title: {}, President: {}>'.format(self.id, self.title, self.speaker)
 
 
-class SpeechTypes(object):
+class SpeechTypes(db.Model):
     """docstring for SpeechType"""
 
     __tablename__ = 'speech_types'
@@ -56,7 +56,7 @@ class SpeechTypes(object):
     speeches = db.relationship('Speech')
 
 
-class Collocation(object):
+class Collocation(db.Model):
     """docstring for Collocations"""
 
     __tablename__ = 'collocations'
@@ -67,7 +67,7 @@ class Collocation(object):
     connect = db.relationship('Connection')
 
 
-class Connection(object):
+class Connection(db.Model):
     """docstring for Connection"""
 
     __tablename__ = 'connections'
