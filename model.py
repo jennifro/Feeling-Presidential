@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import speechinfo
 
 app = Flask(__name__)
 
@@ -16,17 +15,19 @@ class President(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
-    start_yr = db.Column(db.Integer, nullable=False)
-    end_yr = db.Column(db.Integer, nullable=False)
 
     speech = db.relationship('Speech')
 
     def __repr__(self):
         return '<ID={}, Name={}>'.format(self.id, self.name)
 
+    # POST MVP:
+    # start_yr = db.Column(db.Integer, nullable=False)
+    # end_yr = db.Column(db.Integer, nullable=False)
+
 
 class Speech(db.Model):
-    """docstring for Speeches"""
+    """docstring for Speech"""
 
     __tablename__ = 'speeches'
 
@@ -34,6 +35,7 @@ class Speech(db.Model):
     title = db.Column(db.String(100), db.ForeignKey('speech_types.speech_type'))
     speaker = db.Column(db.String(50), db.ForeignKey('presidents.name'))
     link = db.Column(db.String(100), nullable=True)
+    score = db.Column(db.Float)
 
     prez = db.relationship('President')
 
@@ -63,6 +65,7 @@ class Collocation(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     phrase = db.Column(db.String(75), nullable=False)
+    sentiment_score = db.Column(db.Float)
 
     connect = db.relationship('Connection')
 
@@ -78,3 +81,16 @@ class Connection(db.Model):
 
     speech = db.relationship('Speech')
     phrase = db.relationship('Collocation')
+
+
+def connect_to_db(app):
+    """Connect database to Flask app."""
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///speeches'
+    db.app = app
+    db.init_app(app)
+
+if __name__ == '__main__':
+    from server import app
+    connect_to_db(app)
+    print 'Connected to DB!'

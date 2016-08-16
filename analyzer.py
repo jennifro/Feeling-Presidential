@@ -1,5 +1,6 @@
 import nltk.classify.util
 from nltk.classify import NaiveBayesClassifier
+# from nltk.corpus import stopwords
 import json
 
 #############################################
@@ -11,6 +12,8 @@ with open('negative-speech.json') as minuses:
 
 # info1 & 2 are lists of dictionaries.
 
+# extra_words = stopwords.words('english')
+
 
 def training_corpora(texts):
     """Returns a list of lists containing individual words from a json file."""
@@ -21,7 +24,7 @@ def training_corpora(texts):
 def bag_o_words(words):
     """Return bag of words from a list of strings."""
 
-    return dict([(word, True) for word in words])
+    return dict([(word.lower(), True) for word in words])  # if word not in extra_words
 
 
 posdata = training_corpora(info1)

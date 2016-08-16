@@ -1,6 +1,9 @@
 import json
 import string
-from model import Speech, SpeechTypes
+from model import connect_to_db, db
+from model import Speech
+from model import SpeechTypes
+from server import app
 
 data = open('allspeeches.json')
 
@@ -39,8 +42,9 @@ def load_speeches():
 
     db.session.commit()
 
+
 def load_speech_type():
-    
+
     for text in all_speech_info:
         title_data = all_speech_info[text]['title']
         title_only = ''.join(title_data).split('(')
@@ -51,3 +55,11 @@ def load_speech_type():
         db.session.add(s_type)
 
     db.session.commit()
+
+if __name__ == '__main__':
+    connect_to_db(app)
+
+    db.create_all()
+
+    load_speeches()
+    load_speech_type()
