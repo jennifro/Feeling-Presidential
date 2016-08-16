@@ -9,6 +9,8 @@ data = open('allspeeches.json')
 
 all_speech_info = json.load(data)
 
+data.close()
+
 
 def get_speech_text():
     """Returns a list of all speeches from scrapy json file."""
