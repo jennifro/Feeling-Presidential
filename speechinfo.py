@@ -1,5 +1,6 @@
 import json
 import string
+from model import Speech, SpeechTypes
 
 data = open('allspeeches.json')
 
@@ -24,22 +25,29 @@ def get_speech_text():
     return full_corpora
 
 
-def get_speech_title():
-    """Returns title of speech as a string"""
+def load_speeches():
+    """Seeds database with info on each speech"""
 
-    for y in range(len(all_speech_info)):
-        return ''.join(all_speech_info[y]['title'])
+    for text in all_speech_info:
+        link = all_speech_info[text]['url']
+        prez = all_speech_info[text]['president']
+        title = all_speech_info[text]['title']
 
+        speech = Speech(title=title, speaker=prez, link=link)
 
-def get_speaker():
-    """Returns the president that gave a particular speech"""
+        db.session.add(speech)
 
-    for z in range(len(all_speech_info)):
-        return ''.join(all_speech_info[z]['president'])
+    db.session.commit()
 
+def load_speech_type():
+    
+    for text in all_speech_info:
+        title_data = all_speech_info[text]['title']
+        title_only = ''.join(title_data).split('(')
+        speech_type = title_only[0]
 
-def get_text_url():
-    """ """
+        s_type = SpeechTypes(speech_type=speech_type)
 
-    for u in range(len(all_speech_info)):
-        return ''.join(all_speech_info[u]['url'])
+        db.session.add(s_type)
+
+    db.session.commit()

@@ -21,12 +21,14 @@ def training_corpora(texts):
 def bag_o_words(words):
     """Return bag of words from a list of strings."""
 
-    return dict([(w, True) for word in words for w in word])
+    return dict([(word, True) for word in words])
 
 
 posdata = training_corpora(info1)
 negdata = training_corpora(info2)
 
+#these are creating one big tuple instead of preserving broken up lists.
+# need to figure out how to break them in individual tuples per speech
 posfeats = [(bag_o_words(text), 'pos') for text in posdata]
 negfeats = [(bag_o_words(text), 'neg') for text in negdata]
 
