@@ -13,7 +13,7 @@ class President(db.Model):
 
     __tablename__ = 'presidents'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    prez_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
 
     speech = db.relationship('Speech')
@@ -31,17 +31,17 @@ class Speech(db.Model):
 
     __tablename__ = 'speeches'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    speech_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(100), db.ForeignKey('speech_types.speech_type'))
-    speaker = db.Column(db.String(50), db.ForeignKey('presidents.name'))
+    speaker = db.Column(db.String(50), db.ForeignKey('presidents.prez_id'))
     link = db.Column(db.String(100), nullable=True)
-    score = db.Column(db.Float)
+    # score = db.Column(db.Float)
 
     prez = db.relationship('President')
 
     speechtype = db.relationship('SpeechTypes')
 
-    connect = db.relationship('Connection')
+    speech_phrases = db.relationship('SpeechCollocation')
 
     def __repr__(self):
         return '<ID={}, Title: {}, President: {}>'.format(self.id, self.title, self.speaker)
@@ -52,7 +52,7 @@ class SpeechTypes(db.Model):
 
     __tablename__ = 'speech_types'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    speech_type_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     speech_type = db.Column(db.String(100), nullable=False)
 
     speeches = db.relationship('Speech')
@@ -63,21 +63,21 @@ class Collocation(db.Model):
 
     __tablename__ = 'collocations'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    phrase_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     phrase = db.Column(db.String(75), nullable=False)
-    sentiment_score = db.Column(db.Float)
+    # sentiment_score = db.Column(db.Float)
 
-    connect = db.relationship('Connection')
+    connect = db.relationship('SpeechCollocation')
 
 
-class Connection(db.Model):
-    """docstring for Connection"""
+class SpeechCollocation(db.Model):
+    """docstring for SpeechCollocation"""
 
-    __tablename__ = 'connections'
+    __tablename__ = 'SpeechCollocations'
 
     connect_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    speech_id = db.Column(db.Integer, db.ForeignKey('speeches.id'))
-    phrase_id = db.Column(db.Integer, db.ForeignKey('collocations.id'))
+    speech_id = db.Column(db.Integer, db.ForeignKey('speeches.speech_id'))
+    phrase_id = db.Column(db.Integer, db.ForeignKey('collocations.phrase_id'))
 
     speech = db.relationship('Speech')
     phrase = db.relationship('Collocation')

@@ -64,7 +64,8 @@ def load_speech_type():
 def load_collocations():
     """Seeds database with common bigrams in speeches"""
     pass
-
+    # get prez id 
+    # for each speech in loop 
 
 if __name__ == '__main__':
     connect_to_db(app)

@@ -1,6 +1,8 @@
 import nltk.classify.util
 from nltk.classify import NaiveBayesClassifier
 from nltk.corpus import stopwords
+from nltk.collocations import *
+import nltk.metrics
 import json
 
 #############################################
@@ -14,6 +16,14 @@ with open('allspeeches.json') as speeches:
     real_data = json.load(speeches)
 
 extra_words = stopwords.words('english')
+
+others = ['united', 'states', 'american', '.', 'white house', 'i', 'we', 'us',
+          'you', 'he', 'she', 'him', 'it', 'they', 'them']
+
+for word in others:
+    word.decode(encoding='UTF-8', errors='strict')
+
+extra_words.extend(others)
 
 
 def training_corpora(texts):
@@ -40,13 +50,18 @@ negcut = len(negfeats)*3/4
 trainfeats = posfeats[:poscut] + negfeats[:negcut]
 testfeats = posfeats[poscut:] + negfeats[negcut:]
 
+# look for sentimental words already tagged
+# look for newspaper articles that are 'mostly' positive or negative
+# try with non-political data, maybe social media
+# label top 50 bigrams across all speeches
+# run bigrams through
+
 print 'train on %d texts, test on %d texts' % (len(trainfeats), len(testfeats))
 
 classifier = NaiveBayesClassifier.train(trainfeats)
 print 'accuracy:', nltk.classify.util.accuracy(classifier, testfeats)
 classifier.show_most_informative_features()
 
-# allspeeches = bag_o_words(training_corpora(real_data))
 
 for data in real_data:
     print 'Testing on', data['title'], 'by', data['president']
@@ -54,5 +69,9 @@ for data in real_data:
     for word in speech:
         if word in extra_words:
             speech.remove(word)
+    speech = bag_o_words(speech)
 
-    print classifier.classify(bag_o_words(speech))
+    print classifier.classify(speech)
+
+# Need output I can put in speechinfo
+# write function to call info and then call function in speechinfo.py
