@@ -1,7 +1,8 @@
 import json
 from model import connect_to_db, db
-from model import President, Speech, SpeechTypes, Collocation
+from model import President, Speech     # Collocation
 from server import app
+from bigramfinder import top_bigrams
 
 data = open('allspeeches.json')
 
@@ -17,11 +18,16 @@ def load_presidents():
     President.query.delete()
 
     for text in all_speech_info:
-        name = all_speech_info[text]['president']
 
-        president = President(name=name)
+        name = ''.join(text['president'])
 
-        db.session.add(president)
+        db_check = President.query.filter(President.name == name).first()
+
+        if db_check is None:
+
+            president = President(name=name)
+
+            db.session.add(president)
 
     db.session.commit()
 
@@ -32,50 +38,59 @@ def load_speeches():
     Speech.query.delete()
 
     for text in all_speech_info:
-        link = all_speech_info[text]['url']
-        prez = all_speech_info[text]['president']
-        title = all_speech_info[text]['title']
+        link = ''.join(text['url'])
+        title = ''.join(text['title'])
+        #  date of speech?
 
-        speech = Speech(title=title, speaker=prez, link=link)
+        speech = Speech(title=title, link=link)
 
         db.session.add(speech)
 
     db.session.commit()
 
 
-def load_speech_type():
-    """Seeds db with info on speech types (inaugural, SoU, etc)"""
+# def load_speech_type():
+#     """Seeds db with info on speech types (inaugural, SoU, etc)"""
 
-    # again, will probs re-do db
-    SpeechTypes.query.delete()
+#     # again, will probs re-do db
+#     SpeechTypes.query.delete()
 
-    for text in all_speech_info:
-        title_data = all_speech_info[text]['title']
-        title_only = ''.join(title_data).split('(')
-        speech_type = title_only[0]
+#     for text in all_speech_info:
+#         title_data = all_speech_info[text]['title']
+#         title_only = ''.join(title_data).split('(')
+#         speech_type = title_only[0]
 
-        s_type = SpeechTypes(speech_type=speech_type)
+#         s_type = SpeechTypes(speech_type=speech_type)
 
-        db.session.add(s_type)
+#         db.session.add(s_type)
 
-    db.session.commit()
+#     db.session.commit()
 
 
 def load_collocations():
     """Seeds database with common bigrams in speeches"""
-    pass
-    # get prez id 
-    # for each speech in loop 
+
+    stuff = top_bigrams()  # { prezname: { speech1: [(phrases) (moarphrases)] } }
+
+    for prez in stuff:  # returns list for each prez
+        for whatevs in stuff[prez]:
+            c_speech = db.session.query(Speech.title == whatevs).first()
+            print c_speech
+
+    # find speech id corresponding to top_bigrams()
+    # bind that to some var
+    # for that speech in top_bigrams(), unpack list of tuples
+    # add each tuple to db
 
 if __name__ == '__main__':
     connect_to_db(app)
 
     db.create_all()
 
-    load_presidents()
-    load_speeches()
-    load_speech_type()
-    load_collocations()
+    # load_presidents()
+    # load_speeches()
+    # load_speech_type()
+    # load_collocations()
 
 ############################
 # OLD CODE:

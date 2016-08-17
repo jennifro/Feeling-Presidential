@@ -19,7 +19,7 @@ class President(db.Model):
     speech = db.relationship('Speech')
 
     def __repr__(self):
-        return '<ID={}, Name={}>'.format(self.id, self.name)
+        return '<ID={}, Name={}>'.format(self.prez_id, self.name)
 
     # POST MVP:
     # start_yr = db.Column(db.Integer, nullable=False)
@@ -32,30 +32,30 @@ class Speech(db.Model):
     __tablename__ = 'speeches'
 
     speech_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(100), db.ForeignKey('speech_types.speech_type'))
-    speaker = db.Column(db.String(50), db.ForeignKey('presidents.prez_id'))
+    title = db.Column(db.String(100))       # db.ForeignKey('speech_types.speech_type')
+    speaker = db.Column(db.Integer, db.ForeignKey('presidents.prez_id'))
     link = db.Column(db.String(100), nullable=True)
     # score = db.Column(db.Float)
 
     prez = db.relationship('President')
 
-    speechtype = db.relationship('SpeechTypes')
+    # speechtype = db.relationship('SpeechTypes')
 
     speech_phrases = db.relationship('SpeechCollocation')
 
     def __repr__(self):
-        return '<ID={}, Title: {}, President: {}>'.format(self.id, self.title, self.speaker)
+        return '<ID={}, Title: {}, President: {}>'.format(self.speech_id, self.title, self.speaker)
 
 
-class SpeechTypes(db.Model):
-    """docstring for SpeechType"""
+# class SpeechTypes(db.Model):
+#     """docstring for SpeechType"""
 
-    __tablename__ = 'speech_types'
+#     __tablename__ = 'speech_types'
 
-    speech_type_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    speech_type = db.Column(db.String(100), nullable=False)
+#     speech_type_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     speech_type = db.Column(db.String(100), nullable=False)
 
-    speeches = db.relationship('Speech')
+#     speeches = db.relationship('Speech')
 
 
 class Collocation(db.Model):
