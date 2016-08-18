@@ -17,19 +17,17 @@ with open('allspeeches.json') as speeches:
 
 extra_words = stopwords.words('english')
 
-others = ['united', 'states', 'american', '.', 'white house', 'i', 'we', 'us',
-          'you', 'he', 'she', 'him', 'it', 'they', 'them']
-
-for word in others:
-    word.decode(encoding='UTF-8', errors='strict')
-
-extra_words.extend(others)
-
 
 def training_corpora(texts):
     """Returns a list of lists containing individual words from a json file."""
 
-    return [item['TEXT'].split() for item in texts if item not in extra_words]
+    speech = [item['TEXT'].split() for item in texts]
+
+    for word in extra_words:
+        while word in speech:
+            speech.remove(word)
+
+    return speech
 
 
 def bag_o_words(words):

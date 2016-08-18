@@ -39,8 +39,8 @@ def top_bigrams():
 
         speech = ''.join(data['TEXT']).lower().split()
 
-        for word in speech:
-            if word in extra_words:
+        for word in extra_words:
+            while word in speech:
                 speech.remove(word)
 
         finder = BigramCollocationFinder.from_words(speech)

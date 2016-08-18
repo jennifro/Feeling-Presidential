@@ -3,6 +3,9 @@ from flask import Flask
 
 app = Flask(__name__)
 
+# helper function
+# query 
+
 
 @app.route('/')
 def index():

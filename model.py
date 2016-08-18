@@ -7,6 +7,7 @@ db = SQLAlchemy()
 
 DB_URI = 'postgresql:///speeches'
 
+## TODO: FIGURE OUT AUTOINCREMENT RESET
 
 class President(db.Model):
     """docstring for President"""

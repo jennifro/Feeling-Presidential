@@ -35,13 +35,16 @@ def load_presidents():
 def load_speeches():
     """Seeds database with info on each speech"""
 
+    SpeechCollocation.query.delete()
+    Collocation.query.delete()
     Speech.query.delete()
 
     for text in all_speech_info:
         link = ''.join(text['url'])
         title = ''.join(text['title'])
-        #  date of speech?
+        
 
+        speaker = President.query.filter_by()
         speech = Speech(title=title, link=link)
 
         db.session.add(speech)
@@ -49,29 +52,10 @@ def load_speeches():
     db.session.commit()
 
 
-# def load_speech_type():
-#     """Seeds db with info on speech types (inaugural, SoU, etc)"""
-
-#     # again, will probs re-do db
-#     SpeechTypes.query.delete()
-
-#     for text in all_speech_info:
-#         title_data = all_speech_info[text]['title']
-#         title_only = ''.join(title_data).split('(')
-#         speech_type = title_only[0]
-
-#         s_type = SpeechTypes(speech_type=speech_type)
-
-#         db.session.add(s_type)
-
-#     db.session.commit()
-
-
 def load_collocations():
-    """Seeds database with common bigrams in speeches"""
-
-    Collocation.query.delete()
-    SpeechCollocation.query.delete()
+    """Seeds database with common bigrams in a table and
+    seeds an association table with bigrams and related speeches.
+    """
 
     all_bigrams = top_bigrams()  # { prezname: { speech1: [(phrases) (moarphrases)] } }
 
@@ -99,11 +83,6 @@ def load_collocations():
 
             db.session.commit()
 
-    # find speech id corresponding to top_bigrams()
-    # bind that to some var
-    # for that speech in top_bigrams(), unpack list of tuples
-    # add each tuple to db
-
 ############################
 if __name__ == '__main__':
     connect_to_db(app)
@@ -112,5 +91,23 @@ if __name__ == '__main__':
 
     load_presidents()
     load_speeches()
-    # load_speech_type()
     load_collocations()
+
+
+# load_speech_type()
+# def load_speech_type():
+#     """Seeds db with info on speech types (inaugural, SoU, etc)"""
+
+#     # again, will probs re-do db
+#     SpeechTypes.query.delete()
+
+#     for text in all_speech_info:
+#         title_data = all_speech_info[text]['title']
+#         title_only = ''.join(title_data).split('(')
+#         speech_type = title_only[0]
+
+#         s_type = SpeechTypes(speech_type=speech_type)
+
+#         db.session.add(s_type)
+
+#     db.session.commit()
