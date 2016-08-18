@@ -1,6 +1,6 @@
 import json
 from model import connect_to_db, db
-from model import President, Speech, Collocation   # SpeechCollocation
+from model import President, Speech, Collocation, SpeechCollocation
 from server import app
 from bigramfinder import top_bigrams
 
@@ -71,17 +71,31 @@ def load_collocations():
     """Seeds database with common bigrams in speeches"""
 
     Collocation.query.delete()
+    SpeechCollocation.query.delete()
 
     all_bigrams = top_bigrams()  # { prezname: { speech1: [(phrases) (moarphrases)] } }
 
     for prez in all_bigrams:  # returns list for each prez
         for p_speech in all_bigrams[prez]:
-            # current_speech = Speech.query.filter_by(title=p_speech).first()
+            current_speech = Speech.query.filter_by(title=p_speech).first()
 
             for bigram in all_bigrams[prez][p_speech]:
-                phrase = Collocation(phrase=bigram)
+                # print bigram, type(bigram)
+
+                phrase = Collocation(phrase=' '.join(bigram))
 
                 db.session.add(phrase)
+
+            db.session.commit()
+
+            for bigram in all_bigrams[prez][p_speech]:
+                # print bigram, type(bigram)
+                new_bigram = Collocation.query.filter_by(phrase=' '.join(bigram)).first()
+
+                current_bigrams = SpeechCollocation(speech_id=current_speech.speech_id,
+                                                    phrase_id=new_bigram.phrase_id)
+
+                db.session.add(current_bigrams)
 
             db.session.commit()
 
@@ -90,6 +104,7 @@ def load_collocations():
     # for that speech in top_bigrams(), unpack list of tuples
     # add each tuple to db
 
+############################
 if __name__ == '__main__':
     connect_to_db(app)
 
@@ -99,23 +114,3 @@ if __name__ == '__main__':
     load_speeches()
     # load_speech_type()
     load_collocations()
-
-############################
-# OLD CODE:
-# import string
-# def get_speech_text():
-#     """Returns a list of all speeches from scrapy json file."""
-#     # Make a test here with a different file maybe?
-
-#     full_corpora = []
-#     excess = string.whitespace
-#     clean_spaces = string.maketrans(excess, ' '*len(excess))
-
-#     for x in range(len(all_speech_info)):
-#         text = (''.join(all_speech_info[x]['speech'])).encode('ascii', 'ignore').lower()
-#         text = text.translate(clean_spaces)
-#         text = text.split()
-
-#         full_corpora.append(text)
-
-#     return full_corpora

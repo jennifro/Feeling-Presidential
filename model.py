@@ -85,6 +85,9 @@ class SpeechCollocation(db.Model):
     speech = db.relationship('Speech')
     phrase = db.relationship('Collocation')
 
+    def __repr__(self):
+        return '<ID={}, Speech ID={}, Phrase ID={}>'.format(self.connect_id, self.speech_id, self.phrase_id)
+
 
 def connect_to_db(app):
     """Connect database to Flask app."""
