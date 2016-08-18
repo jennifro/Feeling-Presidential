@@ -1,6 +1,6 @@
 import json
 from model import connect_to_db, db
-from model import President, Speech     # Collocation
+from model import President, Speech, Collocation   # SpeechCollocation
 from server import app
 from bigramfinder import top_bigrams
 
@@ -70,12 +70,20 @@ def load_speeches():
 def load_collocations():
     """Seeds database with common bigrams in speeches"""
 
-    stuff = top_bigrams()  # { prezname: { speech1: [(phrases) (moarphrases)] } }
+    Collocation.query.delete()
 
-    for prez in stuff:  # returns list for each prez
-        for whatevs in stuff[prez]:
-            c_speech = db.session.query(Speech.title == whatevs).first()
-            print c_speech
+    all_bigrams = top_bigrams()  # { prezname: { speech1: [(phrases) (moarphrases)] } }
+
+    for prez in all_bigrams:  # returns list for each prez
+        for p_speech in all_bigrams[prez]:
+            # current_speech = Speech.query.filter_by(title=p_speech).first()
+
+            for bigram in all_bigrams[prez][p_speech]:
+                phrase = Collocation(phrase=bigram)
+
+                db.session.add(phrase)
+
+            db.session.commit()
 
     # find speech id corresponding to top_bigrams()
     # bind that to some var
@@ -87,10 +95,10 @@ if __name__ == '__main__':
 
     db.create_all()
 
-    # load_presidents()
-    # load_speeches()
+    load_presidents()
+    load_speeches()
     # load_speech_type()
-    # load_collocations()
+    load_collocations()
 
 ############################
 # OLD CODE:

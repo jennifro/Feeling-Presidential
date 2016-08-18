@@ -69,6 +69,9 @@ class Collocation(db.Model):
 
     connect = db.relationship('SpeechCollocation')
 
+    def __repr__(self):
+        return '<ID={}, Phrase={}>'.format(self.phrase_id, self.phrase)
+
 
 class SpeechCollocation(db.Model):
     """docstring for SpeechCollocation"""
