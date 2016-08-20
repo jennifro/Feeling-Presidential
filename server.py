@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask, jsonify
 # from flask_debugtoolbar import DebugToolbarExtension
 from model import President, Speech, Collocation, SpeechCollocation, db, connect_to_db
 
 app = Flask(__name__)
 
 
-def make_nodes():
+def make_links():
 
     # list of {speech title: president}
     speech_lst = Speech.query.all()
@@ -29,40 +29,23 @@ def make_nodes():
             phrase_title = Speech.query.filter(Speech.title == phrase_info.speech.title).first()
         phrases.append({'collocation': p.phrase, 'speech': phrase_title.title})
 
-    # i think i need a single big list
+    links = []
 
-    nodes = prez_speeches
-    nodes.extend(phrases)
+    # {'name': u'Barack Obama', 'title': u'2010 State of the Union Address (January 27, 2010)'}
+    for speech in prez_speeches:
+        links.append({'source': speech['name'], 'target': speech['title']})
 
-    #### works up to here ######
+    for bigram in phrases:
+        links.append({'source': bigram['speech'], 'target': bigram['collocation']})
 
-    # index_nodes = {}
-
-    # for idx, fml in enumerate(nodes):
-    #     index_nodes[fml['title']] = (idx, fml['name'])
-    #     index_nodes[fml['collocation']] = (idx, fml['speech'])  # speech throws key error
-
-    # return index_nodes
-
-    prez_speech_index_nodes = {}
-
-    for idx, stuff in enumerate(prez_speeches):
-        prez_speech_index_nodes[stuff['title']] = (idx, stuff['name'])
-
-    phrase_index_nodes = {}
-
-    for idx, thing in enumerate(phrases):
-        phrase_index_nodes[thing['collocation']] = (idx, thing['speech'])
-
-    paths = []
-
-    for idc in prez_speeches:
-        # connect on something
-        # speech title to speech title in phrase?
+    return links
 
 
-# @app.route('/data.json')
-# """jsonify output of helper function"""
+@app.route('/data.json')
+def get_force_data():
+    """Turn the links list of sources & targets into JSON."""
+
+    return jsonify(make_links())
 
 
 # @app.route('/')
