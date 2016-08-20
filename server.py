@@ -7,18 +7,16 @@ app = Flask(__name__)
 
 def make_links():
 
-    # list of {speech title: president}
+    # list of the prez name & speech title nodes
     speech_lst = Speech.query.all()
 
-    prez_speeches = []
+    nodes = []
 
     for s in speech_lst:
-        prez_speeches.append({'title': s.title, 'name': s.prez.name})
+        nodes.append({'title': s.title, 'name': s.prez.name})
 
-    # print prez_speeches
-
-    # list of {phrase: respective speech}
-    phrases = []
+    # list of bigram/phrase & speech title nodes
+    phrase_nodes = []
 
     phrase_lst = Collocation.query.all()
 
@@ -27,18 +25,23 @@ def make_links():
         phrase_location = p.connect
         for phrase_info in phrase_location:
             phrase_title = Speech.query.filter(Speech.title == phrase_info.speech.title).first()
-        phrases.append({'collocation': p.phrase, 'speech': phrase_title.title})
+        phrase_nodes.append({'collocation': p.phrase, 'speech': phrase_title.title})
+
+    # put all the nodes together in one list
+    nodes.extend(phrase_nodes)
+
+    # identify how each node is connected, what is primary and what it points to.
 
     links = []
 
-    # {'name': u'Barack Obama', 'title': u'2010 State of the Union Address (January 27, 2010)'}
-    for speech in prez_speeches:
-        links.append({'source': speech['name'], 'target': speech['title']})
+    for speech in nodes:
+        if 'name' in speech:
+            links.append({'source': speech['name'], 'target': speech['title']})
 
-    for bigram in phrases:
-        links.append({'source': bigram['speech'], 'target': bigram['collocation']})
+        else:
+            links.append({'source': speech['speech'], 'target': speech['collocation']})
 
-    return links
+    return links, 'NODES AQUI', nodes
 
 
 @app.route('/data.json')

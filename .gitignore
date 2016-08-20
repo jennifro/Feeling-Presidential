@@ -2,3 +2,4 @@
 .DS_Store
 *.pyc
 /templates/d3sample.html
+/speechescrape
