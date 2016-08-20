@@ -42,10 +42,10 @@ def load_speeches():
     for text in all_speech_info:
         link = ''.join(text['url'])
         title = ''.join(text['title'])
-        
+        prez = ''.join(text['president'])
 
-        speaker = President.query.filter_by()
-        speech = Speech(title=title, link=link)
+        speaker = President.query.filter_by(name=prez).one()
+        speech = Speech(title=title, link=link, speaker=speaker.prez_id)
 
         db.session.add(speech)
 
