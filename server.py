@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 from model import Speech, Collocation, connect_to_db, db
-# from flask.ext.login import LoginManager, UserMixin, login_required, login_user, logout_user
 
 
 app = Flask(__name__)
@@ -13,6 +12,7 @@ app.secret_key = "whatevs"
 
 
 def make_links():
+    """Creates source/target/type dictionary for d3 force layout."""
 
     # list of the prez name & speech title nodes
     speech_lst = Speech.query.all()

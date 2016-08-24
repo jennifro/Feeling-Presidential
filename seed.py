@@ -92,22 +92,3 @@ if __name__ == '__main__':
     load_presidents()
     load_speeches()
     load_collocations()
-
-
-# load_speech_type()
-# def load_speech_type():
-#     """Seeds db with info on speech types (inaugural, SoU, etc)"""
-
-#     # again, will probs re-do db
-#     SpeechTypes.query.delete()
-
-#     for text in all_speech_info:
-#         title_data = all_speech_info[text]['title']
-#         title_only = ''.join(title_data).split('(')
-#         speech_type = title_only[0]
-
-#         s_type = SpeechTypes(speech_type=speech_type)
-
-#         db.session.add(s_type)
-
-#     db.session.commit()

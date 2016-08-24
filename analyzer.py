@@ -19,22 +19,28 @@ extra_words = stopwords.words('english')
 
 
 def training_corpora(texts):
-    """Returns a list of lists containing individual words from a json file."""
+    """Returns a list of lists containing individual words from json file."""
 
-    speech = [item['TEXT'].split() for item in texts]
+    full_speeches = []
 
-    for word in extra_words:
-        while word in speech:
-            speech.remove(word)
+    for item in texts:
+        speech = item['TEXT'].lower().split()
 
-    return speech
+        for word in extra_words:
+            while word in speech:
+                speech.remove(word)
+
+        full_speeches.append(speech)
+
+    return full_speeches
 
 
 def bag_o_words(words):
     """Return bag of words from a list of strings."""
 
-    return dict([(word.lower(), True) for word in words])
+    return dict([(word, True) for word in words])
 
+# wrap this in a function.
 
 posdata = training_corpora(info1)
 negdata = training_corpora(info2)
@@ -42,17 +48,11 @@ negdata = training_corpora(info2)
 posfeats = [(bag_o_words(text), 'pos') for text in posdata]
 negfeats = [(bag_o_words(text), 'neg') for text in negdata]
 
-poscut = len(posfeats)*3/4
-negcut = len(negfeats)*3/4
+poscut = len(posfeats)*7/8
+negcut = len(negfeats)*7/8
 
 trainfeats = posfeats[:poscut] + negfeats[:negcut]
 testfeats = posfeats[poscut:] + negfeats[negcut:]
-
-# look for sentimental words already tagged
-# look for newspaper articles that are 'mostly' positive or negative
-# try with non-political data, maybe social media
-# label top 50 bigrams across all speeches
-# run bigrams through
 
 print 'train on %d texts, test on %d texts' % (len(trainfeats), len(testfeats))
 
@@ -61,15 +61,21 @@ print 'accuracy:', nltk.classify.util.accuracy(classifier, testfeats)
 classifier.show_most_informative_features()
 
 
-for data in real_data:
-    print 'Testing on', data['title'], 'by', data['president']
-    speech = ''.join(data['TEXT']).split()
-    for word in speech:
-        if word in extra_words:
-            speech.remove(word)
-    speech = bag_o_words(speech)
+def analyze_speeches():
+    """Sentiment analysis on presidential speeches."""
 
-    print classifier.classify(speech)
+    sentiment_scores = {}
 
-# Need output I can put in speechinfo
-# write function to call info and then call function in speechinfo.py
+    for data in real_data:
+        title = ''.join(data['title'])
+        speech = ''.join(data['TEXT']).split()
+        for word in extra_words:
+            while word in speech:
+                speech.remove(word)
+        speech = bag_o_words(speech)
+
+        sentiment = classifier.classify(speech)
+
+        sentiment_scores[title] = sentiment
+
+    return sentiment_scores

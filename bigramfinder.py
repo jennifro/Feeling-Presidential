@@ -35,13 +35,13 @@ def top_bigrams():
         if prez_name not in prez_phrases:
             prez_phrases[prez_name] = {}
 
-######### get bigrams ##############
-
         speech = ''.join(data['TEXT']).lower().split()
 
         for word in extra_words:
             while word in speech:
                 speech.remove(word)
+
+######### get bigrams ##############
 
         finder = BigramCollocationFinder.from_words(speech)
 
