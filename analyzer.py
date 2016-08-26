@@ -5,7 +5,7 @@ from nltk.classify import NaiveBayesClassifier
 from nltk.collocations import *
 import nltk.metrics
 import json
-from stringparser import str_parser
+from utilities import str_parser
 import random
 
 #############################################

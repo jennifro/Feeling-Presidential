@@ -1,19 +1,11 @@
 import nltk
 from nltk.collocations import *
-from nltk.corpus import stopwords
 import json
+from utilities import str_parser
 
 with open('allspeeches.json') as speeches:
     real_data = json.load(speeches)
 
-extra_words = stopwords.words('english')
-
-others = ['united', 'states', 'american', '.', 'white house', 'i', 'we', 'us',
-          'you', 'he', 'she', 'him', 'it', 'they', 'them', 'its']
-
-others = [word.decode(errors='strict') for word in others]
-
-extra_words.extend(others)
 
 bigram_measures = nltk.collocations.BigramAssocMeasures()
 
@@ -35,11 +27,9 @@ def top_bigrams():
         if prez_name not in prez_phrases:
             prez_phrases[prez_name] = {}
 
-        speech = ''.join(data['TEXT']).lower().split()  # returns speech as a list with word elements
+        speech_str = ''.join(data['TEXT'])
 
-        for word in extra_words:
-            while word in speech:
-                speech.remove(word)
+        speech = str_parser(speech_str)  # returns list of word elements
 
 ######### get bigrams ##############
 
