@@ -35,7 +35,7 @@ def top_bigrams():
         if prez_name not in prez_phrases:
             prez_phrases[prez_name] = {}
 
-        speech = ''.join(data['TEXT']).lower().split()
+        speech = ''.join(data['TEXT']).lower().split()  # returns speech as a list with word elements
 
         for word in extra_words:
             while word in speech:
