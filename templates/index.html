@@ -9,10 +9,16 @@
 			stroke-width: 2px;
 		}
 
-		.link {
+		.link.prez-speech {
 		  fill: none;
-		  stroke: #666;
+		  stroke: red;
 		  stroke-width: 1.5px;
+		}
+
+		.link.speech-bigram {
+			fill: none;
+			stroke: orange;
+			stroke-dasharray: 0,2 2;
 		}
 
 		text {
@@ -34,11 +40,12 @@
 			var nodes = {};
 
 // Compute the distinct nodes from the links.
-// TODO: 
 			links.forEach(function(link) {
 			  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
 			  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
 			});
+
+			// console.log(nodes);
 
 			var width = 900,
 			    height = 900;
@@ -79,7 +86,21 @@
 			var circle = svg.append("g").selectAll("circle")
 			    .data(force.nodes())
 			  .enter().append("circle")
-			    .attr("r", 6)
+			    .attr("r", function(d){
+			    	switch (d.name) {
+			    		case 'George W. Bush':
+			    			return 10;
+			    			break;
+			    		case 'Lyndon B. Johnson':
+			    			return 10;
+			    			break;
+			    		case 'Barack Obama':
+			    			return 10;
+			    			break;
+			    		default:
+			    			return 4;
+			    	}
+			    })
 			    .call(force.drag);
 
 			var text = svg.append("g").selectAll("text")

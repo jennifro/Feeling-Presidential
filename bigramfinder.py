@@ -2,6 +2,7 @@ import nltk
 from nltk.collocations import *
 import json
 from utilities import str_parser
+import pickle
 
 with open('allspeeches.json') as speeches:
     real_data = json.load(speeches)
@@ -42,3 +43,26 @@ def top_bigrams():
         prez_phrases[prez_name][title] = ngrams
 
     return prez_phrases
+
+
+def bigram_sentiment():
+    """Returns sentiment analysis for individual bigrams using Naive Bayes
+    Classifier.
+    """
+
+    classifier_f = open("naivebayes.pickle", "rb")
+    classifier = pickle.load(classifier_f)
+    classifier_f.close()
+
+    relevant_bigrams = top_bigrams()
+
+    bigram_rating = {}
+
+    for prez in relevant_bigrams:
+        for speech in relevant_bigrams[prez]:
+            these_bis = relevant_bigrams[prez][speech]
+            for tup in these_bis:
+                sentiment = classifier.classify({tup: True})
+                bigram_rating[tup] = sentiment
+
+    return bigram_rating

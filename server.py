@@ -1,54 +1,12 @@
 from flask import Flask, jsonify, render_template
 from flask_debugtoolbar import DebugToolbarExtension
-from model import Speech, Collocation, connect_to_db, db
+from model import connect_to_db
+from utilities import make_links
 
 
 app = Flask(__name__)
 
 app.secret_key = "whatevs"
-# login_manager = LoginManager()
-# login_manager.init_app(app)
-# login_manager.login_view = "login"
-
-
-def make_links():
-    """Creates source/target/type dictionary for d3 force layout."""
-
-    # list of the prez name & speech title nodes
-    speech_lst = Speech.query.all()
-
-    nodes = []
-
-    for s in speech_lst:
-        nodes.append({'speech': s.title, 'name': s.prez.name})
-
-    # list of bigram/phrase & speech title nodes
-    phrase_nodes = []
-
-    phrase_lst = Collocation.query.all()
-
-    for p in phrase_lst:
-        # find the speech title for said phrase
-        phrase_location = p.connect
-        for phrase_info in phrase_location:
-            phrase_title = Speech.query.filter(Speech.title == phrase_info.speech.title).first()
-        phrase_nodes.append({'collocation': p.phrase, 'speech': phrase_title.title})
-
-    # put all the nodes together in one list
-    nodes.extend(phrase_nodes)
-
-    # identify how each node is connected, what is primary and what it points to.
-
-    paths = []
-
-    for speech in nodes:
-        if 'name' in speech:
-            paths.append({'source': speech['name'], 'target': speech['speech'], 'type': 'prez-speech'})
-
-        else:
-            paths.append({'source': speech['speech'], 'target': speech['collocation'], 'type': 'speech-bigram'})
-
-    return paths
 
 
 @app.route('/data.json')

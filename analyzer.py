@@ -2,11 +2,14 @@ import nltk.classify.util
 from nltk.classify import NaiveBayesClassifier
 # from nltk.classify.scikitlearn import SklearnClassifier
 # from sklearn.naive_bayes import MultinomialNB, BernoulliNB
-from nltk.collocations import *
-import nltk.metrics
+import collections
+from nltk.collocations import BigramCollocationFinder
+from nltk.metrics import *
 import json
+import itertools
 from utilities import str_parser
-import random
+import pickle
+# import random
 
 #############################################
 with open('positive-speech.json') as pluses:
@@ -15,11 +18,6 @@ with open('positive-speech.json') as pluses:
 with open('negative-speech.json') as minuses:
     info2 = json.load(minuses)
 
-with open('allspeeches.json') as speeches:
-    real_data = json.load(speeches)
-
-
-# pickle classifier?
 
 def training_corpora(texts):
     """Returns a list of lists containing individual words from json file."""
@@ -38,8 +36,8 @@ def training_corpora(texts):
 posdata = training_corpora(info1)
 negdata = training_corpora(info2)
 
-random.shuffle(posdata)
-random.shuffle(negdata)
+# random.shuffle(posdata)
+# random.shuffle(negdata)
 
 # finding the most common words in all speeches
 all_words = []
@@ -59,6 +57,11 @@ common_feats = list(most_common.keys())[:1500]
 
 
 def get_features(document):
+    """Returns feature dictionary given an object with single-word elements.
+
+    Output is a dictionary where a word appearing a list object is the key,
+    and a boolean (True) as the value.
+    """
 
     words = set(document)
     features = {}
@@ -68,10 +71,25 @@ def get_features(document):
     return features
 
 
-# creates list of tuples: [ ({word: True}, pos/neg), (), () ]
+def bigram_features(words, score_fn=BigramAssocMeasures.chi_sq, n=200):
+    bigram_finder = BigramCollocationFinder.from_words(words)
+    bigrams = bigram_finder.nbest(score_fn, n)
+    return dict([(ngram, True) for ngram in itertools.chain(words, bigrams)])
+
+
+# pickle classifier?
+
+"""Code below determines overall positivity or negativity for a political text.
+
+Uses a Naive Bayes Classifier trained on around 50 American political speeches
+from 1960-2016.
+
+Because it uses data that is shuffled every time the file is ran, the output
+of most informative features will vary slightly. Expected accuracy is ~62%.
+"""
+
 pos_tags = [(get_features(speech), 'pos') for speech in posdata]
 neg_tags = [(get_features(speech), 'neg') for speech in negdata]
-
 
 poscut = len(pos_tags)*7/8
 negcut = len(neg_tags)*7/8
@@ -82,7 +100,24 @@ testfeats = pos_tags[poscut:] + neg_tags[negcut:]
 print 'training on %d texts, testing on %d texts' % (len(trainfeats), len(testfeats))
 
 classifier = NaiveBayesClassifier.train(trainfeats)
+
+save_classifier = open('naivebayes.pickle', "wb")
+pickle.dump(classifier, save_classifier)
+save_classifier.close()
+
+testsets = collections.defaultdict(set)
+refsets = collections.defaultdict(set)
+
+for i, (feats, label) in enumerate(testfeats):
+    refsets[label].add(i)
+    observed = classifier.classify(feats)
+    testsets[observed].add(i)
+
 print 'accuracy:', nltk.classify.util.accuracy(classifier, testfeats)
+print 'pos precision:', precision(refsets['pos'], testsets['pos'])
+print 'pos recall:', recall(refsets['pos'], testsets['pos'])
+print 'neg precision:', precision(refsets['neg'], testsets['neg'])
+print 'neg recall:', recall(refsets['neg'], testsets['neg'])
 classifier.show_most_informative_features(15)
 
 # MNB_classifier = SklearnClassifier(MultinomialNB())
@@ -92,6 +127,9 @@ classifier.show_most_informative_features(15)
 # BernoulliNB_classifier = SklearnClassifier(BernoulliNB())
 # BernoulliNB_classifier.train(trainfeats)
 # print("BernoulliNB_classifier accuracy:", (nltk.classify.accuracy(BernoulliNB_classifier, testfeats)))
+
+with open('allspeeches.json') as speeches:
+    real_data = json.load(speeches)
 
 
 def analyze_speeches():
@@ -105,36 +143,10 @@ def analyze_speeches():
 
         speech = str_parser(text_string)
 
-        speech = get_features(speech)
+        speech_feats = get_features(speech)
 
-        sentiment = classifier.classify(speech)
+        sentiment = classifier.classify(speech_feats)
 
         sentiment_scores[title] = sentiment
 
     return sentiment_scores
-
-###### old code ########
-
-# pos_words = []
-
-# for item in posdata:
-#     for word in item:
-#         pos_words.append(word)
-
-# neg_words = []
-
-# for item in negdata:
-#     for word in item:
-#         neg_words.append(word)
-
-# pos_words = nltk.FreqDist(pos_words)
-# neg_words = nltk.FreqDist(neg_words)
-
-# pos_features = list(pos_words.keys())[:1500]
-# neg_features = list(neg_words.keys())[:1500]
-
-
-# def bag_o_words(words):
-#     """Return bag of words from a list of strings."""
-
-#     return dict([(word, True) for word in words])

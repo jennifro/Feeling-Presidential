@@ -2,7 +2,8 @@ import json
 from model import connect_to_db, db
 from model import President, Speech, Collocation, SpeechCollocation
 from server import app
-from bigramfinder import top_bigrams
+from bigramfinder import top_bigrams, bigram_sentiment
+from analyzer import analyze_speeches
 
 data = open('allspeeches.json')
 
@@ -15,6 +16,9 @@ def load_presidents():
     """Seed database with relevant presidents."""
 
      # cuz I'll probably redo db multiple times in testing
+    SpeechCollocation.query.delete()
+    Collocation.query.delete()
+    Speech.query.delete()
     President.query.delete()
 
     for text in all_speech_info:
@@ -35,17 +39,17 @@ def load_presidents():
 def load_speeches():
     """Seeds database with info on each speech"""
 
-    SpeechCollocation.query.delete()
-    Collocation.query.delete()
-    Speech.query.delete()
+    sentiment_analysis = analyze_speeches()
 
     for text in all_speech_info:
         link = ''.join(text['url'])
         title = ''.join(text['title'])
         prez = ''.join(text['president'])
 
+        sentiment = sentiment_analysis[title]
         speaker = President.query.filter_by(name=prez).one()
-        speech = Speech(title=title, link=link, speaker=speaker.prez_id)
+        speech = Speech(title=title, link=link, speaker=speaker.prez_id,
+                        sentiment=sentiment)
 
         db.session.add(speech)
 
@@ -58,6 +62,7 @@ def load_collocations():
     """
 
     all_bigrams = top_bigrams()  # { prezname: { speech1: [(phrases) (moarphrases)] } }
+    sentiments = bigram_sentiment()
 
     for prez in all_bigrams:  # returns list for each prez
         for p_speech in all_bigrams[prez]:
@@ -65,8 +70,9 @@ def load_collocations():
 
             for bigram in all_bigrams[prez][p_speech]:
                 # print bigram, type(bigram)
+                sentiment = sentiments[bigram]
 
-                phrase = Collocation(phrase=' '.join(bigram))
+                phrase = Collocation(phrase=' '.join(bigram), sentiment_score=sentiment)
 
                 db.session.add(phrase)
 

@@ -9,6 +9,7 @@ DB_URI = 'postgresql:///speeches'
 
 ## TODO: FIGURE OUT AUTOINCREMENT RESET
 
+
 class President(db.Model):
     """docstring for President"""
 
@@ -36,7 +37,7 @@ class Speech(db.Model):
     title = db.Column(db.String(100))       # db.ForeignKey('speech_types.speech_type')
     speaker = db.Column(db.Integer, db.ForeignKey('presidents.prez_id'))
     link = db.Column(db.String(100), nullable=True)
-    # score = db.Column(db.Float)
+    sentiment = db.Column(db.String(5))
 
     prez = db.relationship('President')
 
@@ -45,18 +46,8 @@ class Speech(db.Model):
     speech_phrases = db.relationship('SpeechCollocation')
 
     def __repr__(self):
-        return '<ID={}, Title: {}, President: {}>'.format(self.speech_id, self.title, self.speaker)
-
-
-# class SpeechTypes(db.Model):
-#     """docstring for SpeechType"""
-
-#     __tablename__ = 'speech_types'
-
-#     speech_type_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     speech_type = db.Column(db.String(100), nullable=False)
-
-#     speeches = db.relationship('Speech')
+        return '<ID={}, Title: {}, President: {}, Sentiment: {}>'.format(self.speech_id,
+                                                                         self.title, self.speaker, self.sentiment)
 
 
 class Collocation(db.Model):
@@ -66,7 +57,7 @@ class Collocation(db.Model):
 
     phrase_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     phrase = db.Column(db.String(75), nullable=False)
-    # sentiment_score = db.Column(db.Float)
+    sentiment_score = db.Column(db.String(5))
 
     connect = db.relationship('SpeechCollocation')
 
