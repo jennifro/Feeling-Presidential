@@ -46,8 +46,8 @@ def top_bigrams():
 
 
 def bigram_sentiment():
-    """Returns sentiment analysis for individual bigrams using Naive Bayes
-    Classifier.
+    """Returns a dictionary of phrase: sentiment for individual
+    bigrams using Naive Bayes Classifier.
     """
 
     classifier_f = open("naivebayes.pickle", "rb")
@@ -60,9 +60,18 @@ def bigram_sentiment():
 
     for prez in relevant_bigrams:
         for speech in relevant_bigrams[prez]:
-            these_bis = relevant_bigrams[prez][speech]
-            for tup in these_bis:
-                sentiment = classifier.classify({tup: True})
-                bigram_rating[tup] = sentiment
+            current_bigram = relevant_bigrams[prez][speech]
+
+            for tup1, tup2 in current_bigram:
+                sentiment1 = classifier.classify({tup1: True})
+                sentiment2 = classifier.classify({tup2: True})
+                # print tup1, sentiment1, tup2, sentiment2
+
+                if sentiment1 == 'pos' and sentiment2 == 'pos':
+                    bigram_rating[tup1, tup2] = 'positive'
+                elif sentiment1 != sentiment2:
+                    bigram_rating[tup1, tup2] = 'neutral'
+                else:
+                    bigram_rating[tup1, tup2] = 'negative'
 
     return bigram_rating

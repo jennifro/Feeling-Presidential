@@ -37,7 +37,7 @@ class Speech(db.Model):
     title = db.Column(db.String(100))       # db.ForeignKey('speech_types.speech_type')
     speaker = db.Column(db.Integer, db.ForeignKey('presidents.prez_id'))
     link = db.Column(db.String(100), nullable=True)
-    sentiment = db.Column(db.String(5))
+    sentiment = db.Column(db.String(25))
 
     prez = db.relationship('President')
 
@@ -57,7 +57,7 @@ class Collocation(db.Model):
 
     phrase_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     phrase = db.Column(db.String(75), nullable=False)
-    sentiment_score = db.Column(db.String(5))
+    sentiment_score = db.Column(db.String(25))
 
     connect = db.relationship('SpeechCollocation')
 

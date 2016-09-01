@@ -62,7 +62,7 @@ def load_collocations():
     """
 
     all_bigrams = top_bigrams()  # { prezname: { speech1: [(phrases) (moarphrases)] } }
-    sentiments = bigram_sentiment()
+    sentiments = bigram_sentiment()    # {(phrase): 'pos', 'neutral', 'neg'}
 
     for prez in all_bigrams:  # returns list for each prez
         for p_speech in all_bigrams[prez]:

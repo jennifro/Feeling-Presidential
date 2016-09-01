@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WOW LOOK HERE!</title>     
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js"></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.css' type='text/css'>
+</head>
+<body>
+
+    <div id='wut'></div>
+
+    <script type='text/javascript'>
+
+        $.ajax({
+            url: '/timeline.json', 
+            success: function (data) {
+                var container = $('#wut')[0];
+                var items = new vis.DataSet(data);
+                console.log(items);
+                var options = {};    //responsive: true 
+                var prezTimeline = new vis.Timeline(container, items, options);
+            },
+            error: function (err) {
+                console.log('Error', err);
+                if (err.status === 0) {
+                    alert('Failed to load timeline.json. Idek.');
+                } else {
+                    alert('Fail.');
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

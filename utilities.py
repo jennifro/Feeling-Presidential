@@ -1,6 +1,6 @@
 import regex as re
 from nltk.corpus import stopwords
-from model import Speech, Collocation
+from model import connect_to_db, Speech, Collocation
 
 excess = stopwords.words('english')
 
@@ -68,3 +68,27 @@ def make_links():
             paths.append({'source': speech['speech'], 'target': speech['collocation'], 'type': 'speech-bigram'})
 
     return paths
+
+
+def graph_data():
+    """Makes a data dictionary for vis.js timeline."""
+
+    all_speeches = Speech.query.all()
+
+    items = []
+
+    for stuff in all_speeches:
+        # prez = stuff.prez.name
+        date = stuff.title[-17:-1]    # cutting [-17:-1] of title gives the date of the speech as a string
+        title = stuff.title[:-19]     # title w/ no trailing space.
+        sentiment = stuff.sentiment
+
+        items.append({'start': date, 'content': title, 'title': sentiment})
+
+    return items
+
+
+if __name__ == '__main__':
+    from server import app
+    connect_to_db(app)
+    print 'Connected to DB!'
