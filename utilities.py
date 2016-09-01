@@ -67,7 +67,7 @@ def make_nodes_and_links():
                               'name': item.phrase})
 
         else:
-            all_nodes.append({'id': item.phrase, 'group': 4,
+            all_nodes.append({'id': item.phrase, 'group': 5,
                               'name': item.phrase})
 
     nodes = []

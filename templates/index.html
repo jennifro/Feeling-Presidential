@@ -26,11 +26,11 @@
 			border: 1px;
 		}
 
-		text {
+		/*text {
 		  fill: blue;
 		  font: 10px sans-serif;
 		  pointer-events: none;
-		}
+		}*/
 
 	</style>
 </head>
@@ -64,56 +64,59 @@
 			    .attr("marker-end", function(d) { return "url(#" + d.type + ")";  });
 		      // .attr("stroke-width", '1px');
 
+		    var color = {
+		    	1: 'red',
+		    	2: 'blue',
+		    	3: 'pink',
+		    	4: 'orange', 
+		    	5: 'purple'}
+
 			var node = svg.append("g")
 			    .attr("class", "nodes")
 			    .selectAll("circle")
 			    .data(graph.nodes)
 			    .enter().append("circle")
 			    .attr("r", 5)
-			    .attr("fill", "blue")
+			    .attr("fill", 'black')
 			    .call(d3.drag()
 		        	.on("start", dragstarted)
 			        .on("drag", dragged)
 			        .on("end", dragended));
 
-		  node.append("title")
-		      .text(function(d) { return d.id; });
+			node.append("title")
+		        .text(function(d) { return d.id; });
 
 		  
-		var text = svg.append("g").selectAll("text")
+			var text = svg.append("g").selectAll("text")
                 .data(graph.nodes)
-              .enter().append("text")
+                .enter().append("text")
                 .attr("x", 8)
                 .attr("y", ".31em")
-                .text(function(d) { return d.name; });
+                .text(function(d) { return d.name; })
+                .attr('fill', function(d) { return color[d.group] });
 
-		  simulation
-		      .nodes(graph.nodes)
-		      .on("tick", ticked);
+		  	simulation
+		        .nodes(graph.nodes)
+		        .on("tick", ticked);
 
-		  simulation.force("link")
-		      .links(graph.links);
+		  	simulation.force("link")
+		        .links(graph.links);
 
-		  function ticked() {
-		    link
-		        .attr("x1", function(d) { return d.source.x; })
-		        .attr("y1", function(d) { return d.source.y; })
-		        .attr("x2", function(d) { return d.target.x; })
-		        .attr("y2", function(d) { return d.target.y; });
+		    function ticked() {
+			    link
+			        .attr("x1", function(d) { return d.source.x; })
+			        .attr("y1", function(d) { return d.source.y; })
+			        .attr("x2", function(d) { return d.target.x; })
+			        .attr("y2", function(d) { return d.target.y; });
 
-		    node
-		        .attr("cx", function(d) { return d.x; })
-		        .attr("cy", function(d) { return d.y; });
-		  //   d3.selectAll("circle").attr("cx", function (d) {
-    //     return d.x;
-    // })
-    //     .attr("cy", function (d) {
-    //     return d.y;
-    // });
-			text
-				.attr("x", function (d) { return d.x; })
-        		.attr("y", function (d) { return d.y; });
-		  }
+			    node
+			        .attr("cx", function(d) { return d.x; })
+			        .attr("cy", function(d) { return d.y; });
+
+				text
+					.attr("x", function (d) { return d.x; })
+	        		.attr("y", function (d) { return d.y; });
+		    }
 
 		});
 
