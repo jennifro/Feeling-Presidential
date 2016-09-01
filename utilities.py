@@ -1,6 +1,6 @@
 import regex as re
 from nltk.corpus import stopwords
-from model import connect_to_db, Speech, Collocation
+from model import connect_to_db, President, Speech, Collocation
 
 excess = stopwords.words('english')
 
@@ -30,11 +30,45 @@ def str_parser(sentence):
     return indiv_words
 
 
-def make_links():
-    """Creates source/target/type dictionary for d3 force layout."""
+def make_nodes_and_links():
+    """Creates dataset for d3 force layout.
+    Paths are source/target/type list of dictionaries, nodes are a list of
+    id/name/group dictionaries.
+    Node groups:
+    1: president name
+    2: speech title
+    3: positive bigram
+    4: neutral bigram
+    5: negative bigram
+    """
 
     # list of the prez name & speech title nodes
     speech_lst = Speech.query.all()
+    phrase_lst = Collocation.query.all()
+    prez_lst = President.query.all()
+
+    all_nodes = []
+
+    for item in prez_lst:
+        all_nodes.append({'id': item.name, 'group': 1,
+                          'name': item.name})
+
+    for item in speech_lst:
+        all_nodes.append({'id': item.title, 'group': 2,
+                          'name': item.title})
+
+    for item in phrase_lst:
+        if item.sentiment_score == 'positive':
+            all_nodes.append({'id': item.phrase, 'group': 3,
+                              'name': item.phrase})
+
+        elif item.sentiment_score == 'neutral':
+            all_nodes.append({'id': item.phrase, 'group': 4,
+                              'name': item.phrase})
+
+        else:
+            all_nodes.append({'id': item.phrase, 'group': 4,
+                              'name': item.phrase})
 
     nodes = []
 
@@ -44,30 +78,48 @@ def make_links():
     # list of bigram/phrase & speech title nodes
     phrase_nodes = []
 
-    phrase_lst = Collocation.query.all()
-
     for p in phrase_lst:
         # find the speech title for said phrase
         phrase_location = p.connect
         for phrase_info in phrase_location:
             phrase_title = Speech.query.filter(Speech.title == phrase_info.speech.title).first()
-        phrase_nodes.append({'collocation': p.phrase, 'speech': phrase_title.title})
+        phrase_nodes.append({'collocation': p.phrase, 'speech': phrase_title.title,
+                             'sentiment': p.sentiment_score})
 
     # put all the nodes together in one list
     nodes.extend(phrase_nodes)
 
+    # for n in nodes:
+    #     if 'collocation' in n:
+    #         if n['sentiment'] == 'positive':
+    #             all_nodes.append({'id': n['collocation'],
+    #                               'name': n['collocation'], 'group': 3})
+    #         elif n['sentiment'] == 'negative':
+    #             all_nodes.append({'id': n['collocation'],
+    #                               'name': n['collocation'], 'group': 4})
+    #         else:
+    #             all_nodes.append({'id': n['collocation'],
+    #                               'name': n['collocation'], 'group': 5})
+    #     elif 'name' in n:
+    #         all_nodes.append({'id': n['name'], 'group': 1})
+    #     else:
+    #         all_nodes.append({'id': n['speech'], 'group': 2})
+
+    # print all_nodes
     # identify how each node is connected, what is primary and what it points to.
 
     paths = []
 
     for speech in nodes:
         if 'name' in speech:
-            paths.append({'source': speech['name'], 'target': speech['speech'], 'type': 'prez-speech'})
+            paths.append({'source': speech['name'], 'target': speech['speech'],
+                          'type': 'prez-speech'})
 
         else:
-            paths.append({'source': speech['speech'], 'target': speech['collocation'], 'type': 'speech-bigram'})
+            paths.append({'source': speech['speech'], 'target': speech['collocation'],
+                          'type': 'speech-bigram'})
 
-    return paths
+    return all_nodes, paths
 
 
 def graph_data():
@@ -87,6 +139,9 @@ def graph_data():
 
     return items
 
+
+#################################
+# for testing this file only, must connect to db.
 
 if __name__ == '__main__':
     from server import app

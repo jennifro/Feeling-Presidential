@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db
-from utilities import make_links, graph_data
+from utilities import make_nodes_and_links, graph_data
 
 
 app = Flask(__name__)
@@ -13,9 +13,9 @@ app.secret_key = "whatevs"
 def get_force_data():
     """Turn the links list of sources & targets into JSON."""
 
-    paths = make_links()
+    nodes, links = make_nodes_and_links()
 
-    return jsonify({'paths': paths})
+    return jsonify({'links': links, 'nodes': nodes})
 
 
 @app.route('/')
