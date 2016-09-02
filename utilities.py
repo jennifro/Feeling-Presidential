@@ -135,9 +135,12 @@ def graph_data():
         title = stuff.title[:-19]     # title w/ no trailing space.
         sentiment = stuff.sentiment
 
-        items.append({'start': date, 'content': title, 'title': sentiment})
+        items.append({'start': date, 'content': title, 'group': sentiment})
 
-    return items
+    groups = [{'id': 'pos', 'content': 'positive'},
+              {'id': 'neg', 'content': 'negative'}]
+
+    return items, groups
 
 
 #################################

@@ -26,12 +26,6 @@
 			border: 1px;
 		}
 
-		/*text {
-		  fill: blue;
-		  font: 10px sans-serif;
-		  pointer-events: none;
-		}*/
-
 	</style>
 </head>
 	<body>
@@ -65,19 +59,28 @@
 		      // .attr("stroke-width", '1px');
 
 		    var color = {
-		    	1: 'red',
-		    	2: 'blue',
-		    	3: 'pink',
+		    	1: 'blue',
+		    	2: 'grey',
+		    	3: 'green',
 		    	4: 'orange', 
-		    	5: 'purple'}
+		    	5: 'red'}
+
+		    var sizes = {1: 16, 2: 8, 3: 4, 4: 4, 5: 5}
+
+		    var cirColor = {
+		    	1: 'none',
+		    	2: 'grey',
+		    	3: 'green',
+		    	4: 'orange', 
+		    	5: 'red' }
 
 			var node = svg.append("g")
 			    .attr("class", "nodes")
 			    .selectAll("circle")
 			    .data(graph.nodes)
 			    .enter().append("circle")
-			    .attr("r", 5)
-			    .attr("fill", 'black')
+			    .attr("r", function(d) { return sizes[d.group] })
+			    .attr("fill", function(d) { return  cirColor[d.group] })
 			    .call(d3.drag()
 		        	.on("start", dragstarted)
 			        .on("drag", dragged)

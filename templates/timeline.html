@@ -8,18 +8,20 @@
     </head>
 <body>
 
-    <div id='wut'></div>
+    <div id='timeline'></div>
 
     <script type='text/javascript'>
 
         $.ajax({
             url: '/timeline.json', 
             success: function (data) {
-                var container = $('#wut')[0];
-                var items = new vis.DataSet(data);
+                var container = $('#timeline')[0];
+                var items = new vis.DataSet(data.items);
                 console.log(items);
+                var groups = new vis.DataSet(data.groups)
                 var options = {};    //responsive: true 
-                var prezTimeline = new vis.Timeline(container, items, options);
+                var prezTimeline = new vis.Timeline(container, items, 
+                                                    groups, options);
             },
             error: function (err) {
                 console.log('Error', err);

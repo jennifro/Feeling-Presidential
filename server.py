@@ -27,9 +27,9 @@ def index():
 @app.route('/timeline.json')
 def get_timeline_data():
     """Create JSON data object for chart.js."""
-    items = graph_data()
+    items, groups = graph_data()
 
-    return jsonify(items)
+    return jsonify({'items': items, 'groups': groups})
 
 
 @app.route('/timeline')
