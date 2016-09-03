@@ -1,6 +1,6 @@
 import regex as re
 from nltk.corpus import stopwords
-from model import connect_to_db, President, Speech, Collocation, SpeechCollocation
+from model import db, connect_to_db, President, Speech, Collocation
 
 excess = stopwords.words('english')
 
@@ -91,18 +91,22 @@ def make_nodes_and_links():
 
     # add bigrams in speeches to nodes w/ pos, neg or neutral grouping
     # TO FIX:
-    # for p in phrase_lst:
+    for p in phrase_nodes:
 
-    #     if p.sentiment_score == 'positive':
-    #         nodes.append({'id': p.phrase, 'group': 3, 'name': p.phrase})
+        phrase = p['collocation']
 
-    #     elif p.sentiment_score == 'neutral':
-    #         nodes.append({'id': p.phrase, 'group': 4, 'name': p.phrase})
+        q = Collocation.query.filter(Collocation.phrase == phrase).first()
 
-    #     elif p.sentiment_score == 'negative':
-    #         nodes.append({'id': p.phrase, 'group': 5, 'name': p.phrase})
+        if q.sentiment_score == 'positive':
+            nodes.append({'id': q.phrase, 'group': 3, 'name': q.phrase})
 
-    return phrase_nodes, paths
+        elif q.sentiment_score == 'neutral':
+            nodes.append({'id': q.phrase, 'group': 4, 'name': q.phrase})
+
+        elif q.sentiment_score == 'negative':
+            nodes.append({'id': q.phrase, 'group': 5, 'name': q.phrase})
+
+    return nodes, paths
 
 
 def graph_data():
