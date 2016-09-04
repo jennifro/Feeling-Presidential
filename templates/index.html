@@ -49,13 +49,20 @@
 		d3.json("/data.json", function(error, graph) {
 			if (error) throw error;
 
+			var linkNodes = [];
+			graph.links.forEach(function(link) {
+				linkNodes.push({ source: graph.nodes[link.source],
+								 target: graph.nodes[link.target]
+				});
+			})
+
 		  	var link = svg.append("g")
 			    .attr("class", "links")
 			    .selectAll("line")
 			    .data(graph.links)
 			    .enter().append("line")
 			    .attr("class", function(d) { return "link " + d.type; })
-			    .attr("marker-end", function(d) { return "url(#" + d.type + ")";  });
+			    .style('stroke-width', 2);
 		      // .attr("stroke-width", '1px');
 
 		    var color = {
@@ -97,6 +104,13 @@
                 .attr("y", ".31em")
                 .text(function(d) { return d.name; })
                 .attr('fill', function(d) { return color[d.group] });
+
+            var linkNode = svg.selectAll('.link-node')
+            	.data(linkNodes)
+            	.enter().append('circle')
+            	.attr('class', 'link-node')
+            	.attr('r', 2)
+            	.style('fill', 'grey')
 
 		  	simulation
 		        .nodes(graph.nodes)

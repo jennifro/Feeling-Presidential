@@ -58,6 +58,22 @@ def make_nodes_and_links():
     for item in speech_lst:
         nodes.append({'id': item.title, 'group': 2, 'name': item.title})
 
+    # add bigrams in speeches to nodes w/ pos, neg or neutral grouping
+    phrase_sentiment = db.session.query(Collocation.phrase, Collocation.sentiment_score)
+    p_sin_duplicates = phrase_sentiment.group_by('phrase', 'sentiment_score').all()
+
+    for p in p_sin_duplicates:
+        bigram, sentiment = p
+
+        if sentiment == 'positive':
+            nodes.append({'id': bigram, 'group': 3, 'name': bigram})
+
+        elif sentiment == 'neutral':
+            nodes.append({'id': bigram, 'group': 4, 'name': bigram})
+
+        elif sentiment == 'negative':
+            nodes.append({'id': bigram, 'group': 5, 'name': bigram})
+
     node_links = []
 
     for s in speech_lst:
@@ -88,23 +104,6 @@ def make_nodes_and_links():
         else:
             paths.append({'source': speech['speech'], 'target': speech['collocation'],
                           'type': 'speech-bigram'})
-
-    # add bigrams in speeches to nodes w/ pos, neg or neutral grouping
-    # TO FIX:
-    for p in phrase_nodes:
-
-        phrase = p['collocation']
-
-        q = Collocation.query.filter(Collocation.phrase == phrase).first()
-
-        if q.sentiment_score == 'positive':
-            nodes.append({'id': q.phrase, 'group': 3, 'name': q.phrase})
-
-        elif q.sentiment_score == 'neutral':
-            nodes.append({'id': q.phrase, 'group': 4, 'name': q.phrase})
-
-        elif q.sentiment_score == 'negative':
-            nodes.append({'id': q.phrase, 'group': 5, 'name': q.phrase})
 
     return nodes, paths
 
