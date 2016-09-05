@@ -21,7 +21,7 @@
 			stroke-dasharray: 0,2 2;
 		}
 
-		.circle.prez {
+		.node.circle.1 {
 			fill: none;
 			border: 1px;
 		}
@@ -29,8 +29,8 @@
 	</style>
 </head>
 	<body>
-		<!-- <h2>Insert title here.</h2> -->
-		<svg width="800" height="800"></svg>
+		<h2>Insert title here.</h2>
+		<svg width="900" height="800"></svg>
 		<script src='http://d3js.org/d3.v4.min.js'></script>
 		
 		<script>
@@ -65,10 +65,10 @@
 		    	4: 'orange', 
 		    	5: 'red'}
 
-		    var sizes = {1: 16, 2: 8, 3: 4, 4: 4, 5: 5}
+		    var sizes = {1: 16, 2: 8, 3: 2, 4: 2, 5: 2}
 
 		    var cirColor = {
-		    	1: 'blue',
+		    	// 1: 'blue',
 		    	2: 'grey',
 		    	3: 'green',
 		    	4: 'orange', 
@@ -94,8 +94,8 @@
 			var text = svg.append("g").selectAll("text")
                 .data(graph.nodes)
                 .enter().append("text")
-                .attr("x", 8)
-                .attr("y", ".31em")
+                .attr("x", 18)
+                .attr("y", "1em")
                 .text(function(d) { return d.name; })
                 .attr('fill', function(d) { return color[d.group] });
 

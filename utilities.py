@@ -119,7 +119,28 @@ def graph_data():
     items = []
 
     for stuff in all_speeches:
-        prez = stuff.prez.name
+        prez_name = stuff.prez.name
+        if 'kennedy' in prez_name.lower():
+            prez = 'jfk'
+        elif 'lyndon' in prez_name.lower():
+            prez = 'lbj'
+        elif 'nixon' in prez_name.lower():
+            prez = 'nix'
+        elif 'ford' in prez_name.lower():
+            prez = 'ford'
+        elif 'carter' in prez_name.lower():
+            prez = 'cart'
+        elif 'reagan' in prez_name.lower():
+            prez = 'rea'
+        elif 'h. w.' in prez_name.lower():
+            prez = 'ghwb'
+        elif 'clinton' in prez_name.lower():
+            prez = 'clint'
+        elif 'w. bush' in prez_name.lower():
+            prez = 'dubya'
+        else:
+            prez = 'bama'
+
         date = stuff.title[-17:-1]    # cutting [-17:-1] of title gives the date of the speech as a string
         title = stuff.title[:-19]     # title w/ no trailing space.
         sentiment = stuff.sentiment

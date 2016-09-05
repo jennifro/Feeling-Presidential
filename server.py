@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db
 from utilities import make_nodes_and_links, graph_data
 
@@ -41,7 +41,7 @@ def second_page():
 if __name__ == "__main__":
     app.debug = True
 
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     connect_to_db(app)
 
