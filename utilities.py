@@ -56,7 +56,10 @@ def make_nodes_and_links():
         nodes.append({'id': item.name, 'group': 1, 'name': item.name})
 
     for item in speech_lst:
-        nodes.append({'id': item.title, 'group': 2, 'name': item.title})
+        if 'state' in item.title.lower():
+            nodes.append({'id': item.title, 'group': 2, 'name': 'SoU'})
+        else:
+            nodes.append({'id': item.title, 'group': 2, 'name': 'I'})
 
     # add bigrams in speeches to nodes w/ pos, neg or neutral grouping
     phrase_sentiment = db.session.query(Collocation.phrase, Collocation.sentiment_score)
@@ -116,12 +119,12 @@ def graph_data():
     items = []
 
     for stuff in all_speeches:
-        # prez = stuff.prez.name
+        prez = stuff.prez.name
         date = stuff.title[-17:-1]    # cutting [-17:-1] of title gives the date of the speech as a string
         title = stuff.title[:-19]     # title w/ no trailing space.
         sentiment = stuff.sentiment
 
-        items.append({'start': date, 'content': title, 'group': sentiment})
+        items.append({'start': date, 'content': title, 'group': sentiment, 'className': prez})
 
     groups = [{'id': 'pos', 'content': 'positive'},
               {'id': 'neg', 'content': 'negative'}]

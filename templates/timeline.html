@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js"></script>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.css' type='text/css'>
     </head>
+
 <body>
 
     <div id='timeline'></div>
@@ -19,7 +20,7 @@
                 var items = new vis.DataSet(data.items);
                 console.log(items);
                 var groups = new vis.DataSet(data.groups)
-                var options = {};    //responsive: true 
+                var options = {};    //
                 var prezTimeline = new vis.Timeline(container, items, 
                                                     groups, options);
             },

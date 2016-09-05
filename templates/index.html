@@ -49,13 +49,6 @@
 		d3.json("/data.json", function(error, graph) {
 			if (error) throw error;
 
-			var linkNodes = [];
-			graph.links.forEach(function(link) {
-				linkNodes.push({ source: graph.nodes[link.source],
-								 target: graph.nodes[link.target]
-				});
-			})
-
 		  	var link = svg.append("g")
 			    .attr("class", "links")
 			    .selectAll("line")
@@ -86,8 +79,9 @@
 			    .selectAll("circle")
 			    .data(graph.nodes)
 			    .enter().append("circle")
+			    .attr('id', function(d) { return d.group })
 			    .attr("r", function(d) { return sizes[d.group] })
-			    .attr("fill", function(d) { return  cirColor[d.group] })
+			    .attr("fill", function(d) { return cirColor[d.group] })
 			    .call(d3.drag()
 		        	.on("start", dragstarted)
 			        .on("drag", dragged)
@@ -104,13 +98,6 @@
                 .attr("y", ".31em")
                 .text(function(d) { return d.name; })
                 .attr('fill', function(d) { return color[d.group] });
-
-            var linkNode = svg.selectAll('.link-node')
-            	.data(linkNodes)
-            	.enter().append('circle')
-            	.attr('class', 'link-node')
-            	.attr('r', 2)
-            	.style('fill', 'grey')
 
 		  	simulation
 		        .nodes(graph.nodes)
