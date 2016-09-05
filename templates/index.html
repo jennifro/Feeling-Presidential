@@ -27,19 +27,24 @@
 </head>
 	<body>
 		<h2>Insert title here.</h2>
+		<div id='force'></div>
 		<svg width="900" height="800"></svg>
 		<script src='http://d3js.org/d3.v4.min.js'></script>
 		
 		<script>
 
-		var svg = d3.select("svg"),
-		    width = +svg.attr("width"),
-		    height = +svg.attr("height");
-
-		// var color = d3.scaleOrdinal(d3.schemeCategory20);
+		var width = 900;
+		var height = 700;
+		var radius = 4;
+		
+		var svg = d3.select("#force").append('svg')
+			.attr('width', width)
+			.attr('height', height)
+		    
 
 		var simulation = d3.forceSimulation()
-		    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+			.alphaDecay(0.05)
+		    .force("link", d3.forceLink().distance(30).id(function(d) { return d.id; }))
 		    .force("charge", d3.forceManyBody())
 		    .force("center", d3.forceCenter(width / 2, height / 2));
 
