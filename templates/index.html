@@ -21,9 +21,9 @@
 			stroke-dasharray: 0,2 2;
 		}
 
-		.node.circle.1 {
-			fill: none;
-			border: 1px;
+		.node1 {
+			stroke: black;
+			stroke-width: 3;
 		}
 
 	</style>
@@ -55,7 +55,7 @@
 			    .data(graph.links)
 			    .enter().append("line")
 			    .attr("class", function(d) { return "link " + d.type; })
-			    .style('stroke-width', 2);
+			    .style('stroke-width', 1);
 		      // .attr("stroke-width", '1px');
 
 		    var color = {
@@ -68,7 +68,7 @@
 		    var sizes = {1: 16, 2: 8, 3: 2, 4: 2, 5: 2}
 
 		    var cirColor = {
-		    	// 1: 'blue',
+		    	1: 'white',
 		    	2: 'grey',
 		    	3: 'green',
 		    	4: 'orange', 
@@ -79,9 +79,9 @@
 			    .selectAll("circle")
 			    .data(graph.nodes)
 			    .enter().append("circle")
-			    .attr('id', function(d) { return d.group })
-			    .attr("r", function(d) { return sizes[d.group] })
-			    .attr("fill", function(d) { return cirColor[d.group] })
+			    .attr("r", function(d) { return sizes[d.group]; })
+			    .attr("fill", function(d) { return cirColor[d.group]; })
+			    .attr('class', function(d) { return 'node' + d.group; })
 			    .call(d3.drag()
 		        	.on("start", dragstarted)
 			        .on("drag", dragged)
@@ -94,7 +94,7 @@
 			var text = svg.append("g").selectAll("text")
                 .data(graph.nodes)
                 .enter().append("text")
-                .attr("x", 18)
+                .attr("x", 8)
                 .attr("y", "1em")
                 .text(function(d) { return d.name; })
                 .attr('fill', function(d) { return color[d.group] });
