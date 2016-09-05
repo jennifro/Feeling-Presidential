@@ -1,23 +1,20 @@
 <!doctype HTML>
 <html>
 <head>
-	<title>OMG BIGRAMS!</title>
-	<style>
+	<title>Bigram Sentiment</title>
+	<link href='https://color.adobe.com/Gettysburg-color-theme-209416/' rel='stylesheet'>
 
-		/*.node {
-			fill: #ccc;
-			stroke-width: 2px;
-		}*/
+	<style>	
 
 		.link.prez-speech {
 		  fill: none;
-		  stroke: red;
+		  stroke: #343642;
 		  stroke-width: 1.5px;
 		}
 
 		.link.speech-bigram {
 			fill: none;
-			stroke: orange;
+			stroke: #348899;
 			stroke-dasharray: 0,2 2;
 		}
 
@@ -59,7 +56,7 @@
 		      // .attr("stroke-width", '1px');
 
 		    var color = {
-		    	1: 'blue',
+		    	1: '#343642',
 		    	2: 'grey',
 		    	3: 'green',
 		    	4: 'orange', 
@@ -94,10 +91,10 @@
 			var text = svg.append("g").selectAll("text")
                 .data(graph.nodes)
                 .enter().append("text")
-                .attr("x", 8)
-                .attr("y", "1em")
+                .attr("dx", 15)
+                .attr("dy", ".31em")
                 .text(function(d) { return d.name; })
-                .attr('fill', function(d) { return color[d.group] });
+                .style('fill', function(d) { return color[d.group]; });
 
 		  	simulation
 		        .nodes(graph.nodes)
