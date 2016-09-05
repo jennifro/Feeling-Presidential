@@ -35,8 +35,8 @@
 
 		var width = 900;
 		var height = 700;
-		var radius = 4;
-		
+		var radius = 10;
+
 		var svg = d3.select("#force").append('svg')
 			.attr('width', width)
 			.attr('height', height)
@@ -116,8 +116,8 @@
 			        .attr("y2", function(d) { return d.target.y; });
 
 			    node
-			        .attr("cx", function(d) { return d.x; })
-			        .attr("cy", function(d) { return d.y; });
+			        .attr("cx", function(d) { return d.x = Math.max(radius, Math.min(width - radius, d.x)); })
+			        .attr("cy", function(d) { return d.y = Math.max(radius, Math.min(height - radius, d.y)); });
 
 				text
 					.attr("x", function (d) { return d.x; })
