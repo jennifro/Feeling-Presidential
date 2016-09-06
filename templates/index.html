@@ -1,49 +1,48 @@
 <!doctype HTML>
 <html>
+
 <head>
-	<title>Bigram Sentiment</title>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<link href='https://color.adobe.com/Gettysburg-color-theme-209416/' rel='stylesheet' type='text/html'>
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,500|Source+Sans+Pro:600,700" rel="stylesheet">
 
-	<style>	
+<style>	
+.navbar-default {
+	background-color: #348899;
+}
 
+.navbar-default .navbar-brand {
+	color: #F2EBC7;
+}
 
-		.navbar-default {
-		    background-color: #348899;
+.link.prez-speech {
+	fill: none;
+  	stroke: #343642;
+  	stroke-width: 1.5px;
+}
 
-		}
+.link.speech-bigram {
+	fill: none;
+	stroke: #979C9C;
+	stroke-dasharray: 0,2 2;
+}
 
-		.navbar-default .navbar-brand {
-		    color: #F2EBC7;
-		}
+.node1 {
+	stroke: black;
+	stroke-width: 2;
+}
 
-		.link.prez-speech {
-		  fill: none;
-		  stroke: #343642;
-		  stroke-width: 1.5px;
-		}
+text {
+	font-family: 'Cabin', sans-serif;
+	font-weight: 400;
+}
 
-		.link.speech-bigram {
-			fill: none;
-			stroke: #348899;
-			stroke-dasharray: 0,2 2;
-		}
-
-		.node1 {
-			stroke: black;
-			stroke-width: 2;
-		}
-
-		text {
-			fill: #962D3E;
-			font-family: 'Cabin', sans-serif;
-			font-weight: 400;
-		}
-
-	</style>
+</style>
 </head>
+<body>
+
+<html>
 <body>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -58,24 +57,30 @@
       <p class="navbar-brand">Feeling Presidential</p>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Collect the nav links for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/index">Collocations</li><span class="sr-only">(current)</span></a></li>
         <li><a href="/timeline">Speeches</a></li><span class="sr-only">(current)</span></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+  </div><!-- /.container -->
 </nav>
+   
 
-	<h2>Insert title here.</h2>
-	<div id='legend'><p>Legendary!</p></div>
-	<div class='container' id='force'>
-		<div class='row'>
-			<div class='col-xs-12 col-md-12 col-lg-12'>
-		</div>
+<h2>Insert title here.</h2>
+<div class='container' id='legend'>
+	<div class='row'>
+		<div class='col-xs-4 col-md-4 col-lg-4'
+		<p>Legendary!</p>
 	</div>
-		<!-- <div id='force'></div> -->
+</div>
+
+<div class='container' id='force'>
+	<div class='row'>
+		<div class='col-xs-12 col-md-12 col-lg-12'>
+	</div>
+</div>
 
 	<script src='http://d3js.org/d3.v4.min.js'></script>
 	
@@ -109,20 +114,20 @@
 	      // .attr("stroke-width", '1px');
 
 	    var color = {
-	    	1: '#343642',
-	    	2: 'grey',
-	    	3: 'green',
-	    	4: 'orange', 
-	    	5: 'red'}
+	    	1: 'rgb(52,54,66)',
+	    	2: 'rgb(151,156,156)',
+	    	3: 'rgb(47,156,68)',
+	    	4: 'rgb(232,93,115)', 
+	    	5: 'rgb(150,45,62)'}
 
 	    var sizes = {1: 16, 2: 8, 3: 2, 4: 2, 5: 2}
 
 	    var cirColor = {
 	    	1: 'white',
-	    	2: 'grey',
-	    	3: 'green',
-	    	4: 'orange', 
-	    	5: 'red' }
+	    	2: 'rgb(151,156,156)',
+	    	3: 'rgb(47,156,68)',
+	    	4: 'rgb(232,93,115)', 
+	    	5: 'rgb(150,45,62)' }
 
 		var node = svg.append("g")
 		    .attr("class", "nodes")
@@ -147,8 +152,8 @@
             .attr("dx", 15)
             .attr("dy", ".31em")
             .text(function(d) { return d.name; })
-            .attr('id', function(d) { return d.group; });
-            // .style('fill', function(d) { return color[d.group]; });
+            .attr('id', function(d) { return d.group; })
+            .style('fill', function(d) { return color[d.group]; });
 
 	  	simulation
 	        .nodes(graph.nodes)
@@ -193,6 +198,6 @@
 	}
 	</script>
 
-
 </body>
+
 </html>
