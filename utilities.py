@@ -141,8 +141,9 @@ def graph_data():
         else:
             prez = 'bama'
 
-        date = stuff.title[-17:-1]    # cutting [-17:-1] of title gives the date of the speech as a string
-        title = stuff.title[:-19]     # title w/ no trailing space.
+        get_date = re.findall(r'[\w]+', stuff.title)   # splits and removes punctuation
+        date = ' '.join(get_date[-3:])                 # grabs just the date from title
+        title = ' '.join(get_date[:-3])     # title w/ no trailing space.
         sentiment = stuff.sentiment
 
         items.append({'start': date, 'content': title, 'group': sentiment, 'className': prez})

@@ -22,10 +22,34 @@
     color: #F2EBC7;
 }
 
+body {
+    background-color: #F2EBC7;
+}
+
 .vis-item.jfk {
     color: blue;
     background-color: white;
     border-color: darkred;
+}
+
+.vis-item.lbj {
+
+}
+
+.vis-item.nix {
+
+}
+
+.vis-item.ford {
+
+}
+
+.vis-item.cart {
+
+}
+
+.vis-item.rea {
+
 }
 
 .vis-item.ghwb {
@@ -33,6 +57,19 @@
     background-color: black;
     border-color: pink;
 }
+
+.vis-item.clint {
+
+}
+
+.vis-item.dubya {
+
+}
+
+.vis-item.bama {
+
+}
+
 </style>
 
 <body>
@@ -69,7 +106,7 @@
             success: function (data) {
                 var container = $('#timeline')[0];
                 var items = new vis.DataSet(data.items);
-                // console.log(items);
+                console.log(items);
                 var groups = new vis.DataSet(data.groups)
                 var options = {};    //
                 var prezTimeline = new vis.Timeline(container, items, 
