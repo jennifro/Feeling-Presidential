@@ -118,8 +118,8 @@ def graph_data():
 
     items = []
 
-    for stuff in all_speeches:
-        prez_name = stuff.prez.name
+    for s in all_speeches:
+        prez_name = s.prez.name
         if 'kennedy' in prez_name.lower():
             prez = 'jfk'
         elif 'lyndon' in prez_name.lower():
@@ -141,10 +141,10 @@ def graph_data():
         else:
             prez = 'bama'
 
-        get_date = re.findall(r'[\w]+', stuff.title)   # splits and removes punctuation
+        get_date = re.findall(r'[\w]+', s.title)   # splits and removes punctuation
         date = ' '.join(get_date[-3:])                 # grabs just the date from title
         title = ' '.join(get_date[:-3])     # title w/ no trailing space.
-        sentiment = stuff.sentiment
+        sentiment = s.sentiment
 
         items.append({'start': date, 'content': title, 'group': sentiment, 'className': prez})
 

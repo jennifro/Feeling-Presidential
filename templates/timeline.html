@@ -108,7 +108,10 @@ body {
                 var items = new vis.DataSet(data.items);
                 console.log(items);
                 var groups = new vis.DataSet(data.groups)
-                var options = {};    //
+                var options = { zoomable: false,
+                                start: new Date(1958, 1, 1),
+                                end: new Date(2018, 1 ,1),
+                              };    //
                 var prezTimeline = new vis.Timeline(container, items, 
                                                     groups, options);
             },
