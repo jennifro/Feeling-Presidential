@@ -19,30 +19,64 @@
 }
 
 .navbar-default .navbar-brand {
-    color: #F2EBC7;
+    color: #343642;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 600;
+    font-size: 30px
+}
+
+#navbar-text {
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
 }
 
 body {
-    background-color: #979C9C;
+    background-color: #F2EBC7;
+}
+
+.vis-timeline {
+    border: 2px #343642;
+    font-family: 'Cabin', sans-serif;
+    font-weight: 500;
+}
+
+.vis-container {
+    border: 4px solid black;
+}
+
+.vis-item.vis-dot {
+    border-width: 5px;
+    border-radius: 5px;
 }
 
 .vis-item {
-    color: #979C9C;
+    color: #E1E8E8;
     background-color: #343642;
     border-color: #962D3E;
+    border-width: 3px;
     font-family: 'Cabin', sans-serif;
     font-weight: 400;
 }
 
-.vis-group.pos {
+.vis-item.vis-selected {
+    background-color: #348899;
+    border-color: #343642;
+    border-width: 5px;
+}
+
+.vis-time-axis .vis-grid.vis-minor {
+    border-width: 2px;
+    border-color: #979C9C;
+}
+/*.vis-group.pos {
     background-color: lightgreen;
 }
 
 .vis-group.neg {
     background-color: pink;
-}
+}*/
 
 </style>
 
@@ -63,7 +97,7 @@ body {
 
     <!-- Collect the nav links for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" id='navbar-text'>
         <li><a href="/index">Collocations</li><span class="sr-only">(current)</span></a></li>
         <li><a href="/timeline">Speeches</a></li><span class="sr-only">(current)</span></a></li>
       </ul>
