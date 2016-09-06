@@ -2,9 +2,22 @@
 <html>
 <head>
 	<title>Bigram Sentiment</title>
-	<link href='https://color.adobe.com/Gettysburg-color-theme-209416/' rel='stylesheet'>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link href='https://color.adobe.com/Gettysburg-color-theme-209416/' rel='stylesheet' type='text/html'>
+	<link href="https://fonts.googleapis.com/css?family=Cabin:400,500|Source+Sans+Pro:600,700" rel="stylesheet">
 
 	<style>	
+
+
+		.navbar-default {
+		    background-color: #348899;
+
+		}
+
+		.navbar-default .navbar-brand {
+		    color: #F2EBC7;
+		}
 
 		.link.prez-speech {
 		  fill: none;
@@ -20,129 +33,166 @@
 
 		.node1 {
 			stroke: black;
-			stroke-width: 3;
+			stroke-width: 2;
+		}
+
+		text {
+			fill: #962D3E;
+			font-family: 'Cabin', sans-serif;
+			font-weight: 400;
 		}
 
 	</style>
 </head>
-	<body>
-		<h2>Insert title here.</h2>
-		<div id='force'></div>
-		<svg width="900" height="800"></svg>
-		<script src='http://d3js.org/d3.v4.min.js'></script>
-		
-		<script>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <p class="navbar-brand">Feeling Presidential</p>
+    </div>
 
-		var width = 900;
-		var height = 700;
-		var radius = 10;
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/index">Collocations</li><span class="sr-only">(current)</span></a></li>
+        <li><a href="/timeline">Speeches</a></li><span class="sr-only">(current)</span></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
-		var svg = d3.select("#force").append('svg')
-			.attr('width', width)
-			.attr('height', height)
-		    
+	<h2>Insert title here.</h2>
+	<div id='legend'><p>Legendary!</p></div>
+	<div class='container' id='force'>
+		<div class='row'>
+			<div class='col-xs-12 col-md-12 col-lg-12'>
+		</div>
+	</div>
+		<!-- <div id='force'></div> -->
 
-		var simulation = d3.forceSimulation()
-			.alphaDecay(0.05)
-		    .force("link", d3.forceLink().distance(30).id(function(d) { return d.id; }))
-		    .force("charge", d3.forceManyBody())
-		    .force("center", d3.forceCenter(width / 2, height / 2));
+	<script src='http://d3js.org/d3.v4.min.js'></script>
+	
+	<script>
 
-		d3.json("/data.json", function(error, graph) {
-			if (error) throw error;
+	var width = 900;
+	var height = 700;
+	var radius = 10;
 
-		  	var link = svg.append("g")
-			    .attr("class", "links")
-			    .selectAll("line")
-			    .data(graph.links)
-			    .enter().append("line")
-			    .attr("class", function(d) { return "link " + d.type; })
-			    .style('stroke-width', 1);
-		      // .attr("stroke-width", '1px');
+	var svg = d3.select("#force").append('svg')
+		.attr('width', width)
+		.attr('height', height)
+	    
 
-		    var color = {
-		    	1: '#343642',
-		    	2: 'grey',
-		    	3: 'green',
-		    	4: 'orange', 
-		    	5: 'red'}
+	var simulation = d3.forceSimulation()
+		.alphaDecay(0.05)
+	    .force("link", d3.forceLink().distance(30).id(function(d) { return d.id; }))
+	    .force("charge", d3.forceManyBody())
+	    .force("center", d3.forceCenter(width / 2, height / 2));
 
-		    var sizes = {1: 16, 2: 8, 3: 2, 4: 2, 5: 2}
+	d3.json("/data.json", function(error, graph) {
+		if (error) throw error;
 
-		    var cirColor = {
-		    	1: 'white',
-		    	2: 'grey',
-		    	3: 'green',
-		    	4: 'orange', 
-		    	5: 'red' }
+	  	var link = svg.append("g")
+		    .attr("class", "links")
+		    .selectAll("line")
+		    .data(graph.links)
+		    .enter().append("line")
+		    .attr("class", function(d) { return "link " + d.type; })
+		    .style('stroke-width', 1);
+	      // .attr("stroke-width", '1px');
 
-			var node = svg.append("g")
-			    .attr("class", "nodes")
-			    .selectAll("circle")
-			    .data(graph.nodes)
-			    .enter().append("circle")
-			    .attr("r", function(d) { return sizes[d.group]; })
-			    .attr("fill", function(d) { return cirColor[d.group]; })
-			    .attr('class', function(d) { return 'node' + d.group; })
-			    .call(d3.drag()
-		        	.on("start", dragstarted)
-			        .on("drag", dragged)
-			        .on("end", dragended));
+	    var color = {
+	    	1: '#343642',
+	    	2: 'grey',
+	    	3: 'green',
+	    	4: 'orange', 
+	    	5: 'red'}
 
-			node.append("title")
-		        .text(function(d) { return d.id; });
+	    var sizes = {1: 16, 2: 8, 3: 2, 4: 2, 5: 2}
 
-		  
-			var text = svg.append("g").selectAll("text")
-                .data(graph.nodes)
-                .enter().append("text")
-                .attr("dx", 15)
-                .attr("dy", ".31em")
-                .text(function(d) { return d.name; })
-                .style('fill', function(d) { return color[d.group]; });
+	    var cirColor = {
+	    	1: 'white',
+	    	2: 'grey',
+	    	3: 'green',
+	    	4: 'orange', 
+	    	5: 'red' }
 
-		  	simulation
-		        .nodes(graph.nodes)
-		        .on("tick", ticked);
+		var node = svg.append("g")
+		    .attr("class", "nodes")
+		    .selectAll("circle")
+		    .data(graph.nodes)
+		    .enter().append("circle")
+		    .attr("r", function(d) { return sizes[d.group]; })
+		    .attr("fill", function(d) { return cirColor[d.group]; })
+		    .attr('class', function(d) { return 'node' + d.group; })
+		    .call(d3.drag()
+	        	.on("start", dragstarted)
+		        .on("drag", dragged)
+		        .on("end", dragended));
 
-		  	simulation.force("link")
-		        .links(graph.links);
+		node.append("title")
+	        .text(function(d) { return d.id; });
 
-		    function ticked() {
-			    link
-			        .attr("x1", function(d) { return d.source.x; })
-			        .attr("y1", function(d) { return d.source.y; })
-			        .attr("x2", function(d) { return d.target.x; })
-			        .attr("y2", function(d) { return d.target.y; });
+	  
+		var text = svg.append("g").selectAll("text")
+            .data(graph.nodes)
+            .enter().append("text")
+            .attr("dx", 15)
+            .attr("dy", ".31em")
+            .text(function(d) { return d.name; })
+            .attr('id', function(d) { return d.group; });
+            // .style('fill', function(d) { return color[d.group]; });
 
-			    node
-			        .attr("cx", function(d) { return d.x = Math.max(radius, Math.min(width - radius, d.x)); })
-			        .attr("cy", function(d) { return d.y = Math.max(radius, Math.min(height - radius, d.y)); });
+	  	simulation
+	        .nodes(graph.nodes)
+	        .on("tick", ticked);
 
-				text
-					.attr("x", function (d) { return d.x; })
-	        		.attr("y", function (d) { return d.y; });
-		    }
+	  	simulation.force("link")
+	        .links(graph.links);
 
-		});
+	    function ticked() {
+		    link
+		        .attr("x1", function(d) { return d.source.x; })
+		        .attr("y1", function(d) { return d.source.y; })
+		        .attr("x2", function(d) { return d.target.x; })
+		        .attr("y2", function(d) { return d.target.y; });
 
-		function dragstarted(d) {
-		  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-		  d.fx = d.x;
-		  d.fy = d.y;
-		}
+		    node
+		        .attr("cx", function(d) { return d.x = Math.max(radius, Math.min(width - radius, d.x)); })
+		        .attr("cy", function(d) { return d.y = Math.max(radius, Math.min(height - radius, d.y)); });
 
-		function dragged(d) {
-		  d.fx = d3.event.x;
-		  d.fy = d3.event.y;
-		}
+			text
+				.attr("x", function (d) { return d.x; })
+        		.attr("y", function (d) { return d.y; });
+	    }
 
-		function dragended(d) {
-		  if (!d3.event.active) simulation.alphaTarget(0);
-		  d.fx = null;
-		  d.fy = null;
-		}
-		</script>
+	});
 
-	</body>
+	function dragstarted(d) {
+	  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+	  d.fx = d.x;
+	  d.fy = d.y;
+	}
+
+	function dragged(d) {
+	  d.fx = d3.event.x;
+	  d.fy = d3.event.y;
+	}
+
+	function dragended(d) {
+	  if (!d3.event.active) simulation.alphaTarget(0);
+	  d.fx = null;
+	  d.fy = null;
+	}
+	</script>
+
+
+</body>
 </html>
