@@ -15,60 +15,34 @@
 <style>
 
 .navbar-default {
-    background-color: #348899;
+    background-color: #962D3E;
 }
 
 .navbar-default .navbar-brand {
     color: #F2EBC7;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
 }
 
 body {
-    background-color: #F2EBC7;
+    background-color: #979C9C;
 }
 
-/*.vis-item.jfk {
-    color: blue;
-    background-color: white;
-    border-color: darkred;
+.vis-item {
+    color: #979C9C;
+    background-color: #343642;
+    border-color: #962D3E;
+    font-family: 'Cabin', sans-serif;
+    font-weight: 400;
 }
 
-.vis-item.lbj {
-
+.vis-group.pos {
+    background-color: lightgreen;
 }
 
-.vis-item.nix {
-
+.vis-group.neg {
+    background-color: pink;
 }
-
-.vis-item.ford {
-
-}
-
-.vis-item.cart {
-
-}
-
-.vis-item.rea {
-
-}
-
-.vis-item.ghwb {
-    color: yellow;
-    background-color: black;
-    border-color: pink;
-}
-
-.vis-item.clint {
-
-}
-
-.vis-item.dubya {
-
-}
-
-.vis-item.bama {
-
-}*/
 
 </style>
 
@@ -108,7 +82,7 @@ body {
                 var items = new vis.DataSet(data.items);
                 console.log(items);
                 var groups = new vis.DataSet(data.groups)
-                var options = { zoomable: false,
+                var options = { zoomable: true,
                                 start: new Date(1958, 1, 1),
                                 end: new Date(2018, 1 ,1),
                               };    //

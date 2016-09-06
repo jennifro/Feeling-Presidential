@@ -151,10 +151,10 @@ def graph_data():
         # title = ' '.join(get_date[:-3])     # title w/ no trailing space.
         sentiment = s.sentiment
 
-        items.append({'start': date, 'content': title, 'group': sentiment, 'className': prez})
+        items.append({'start': date, 'content': title, 'group': sentiment})
 
-    groups = [{'id': 'pos', 'content': 'positive'},
-              {'id': 'neg', 'content': 'negative'}]
+    groups = [{'id': 'pos', 'content': 'positive', 'className': 'pos'},
+              {'id': 'neg', 'content': 'negative', 'className': 'neg'}]
 
     return items, groups
 
