@@ -32,14 +32,18 @@ body {
 
 h3 {
 	font-family: 'Source Sans Pro', sans-serif;
+	padding-top: .5em;
+	padding-left: 1em;
+	color: #343642;
 }
+
 .legend {
  	list-style: none;
 }
 
 .legend li {
 	float: left;
-	margin-right: 10px;
+	margin-right: 15px;
 	font-family: 'Cabin', sans-serif;
 	font-size: 14px;
 }
@@ -49,7 +53,7 @@ h3 {
 	float: left;
 	width: 12px;
 	height: 12px;
-	margin: 2px;
+	margin: 3px;
 
 }
 
@@ -95,6 +99,18 @@ text {
 	font-weight: 400;
 }
 
+#about.h2 {
+	font-family: 'Cabin', sans-serif;
+	font-weight: 500;
+	color: #962D3E;
+}
+
+#about.p {
+	font-family: Source Sans Pro, sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+}
+
 </style>
 </head>
 <body>
@@ -128,7 +144,7 @@ text {
 <h3>Most common repeated phrases</h3>
 <div class='container' id='legend-box'>
 	<div class='row'>
-		<div class='col-xs-4 col-md-4 col-lg-4'>
+		<div class='col-xs-12 col-md-12 col-lg-12'></div>
 		<ul class='legend'>
 			<li><span class='legend prez'></span>President</li>
 			<li><span class='legend title'></span>(I) Inaugural or (SoU) State of the Union</li>
@@ -139,9 +155,10 @@ text {
 	</div>
 </div>
 
+
 <div class='container' id='force'>
 	<div class='row'>
-		<div class='col-xs-12 col-md-12 col-lg-12'>
+		<div class='col-xs-12 col-md-12 col-lg-12'></div>
 	</div>
 </div>
 
@@ -150,7 +167,7 @@ text {
 	<script>
 
 	var width = 900;
-	var height = 700;
+	var height = 900;
 	var radius = 10;
 
 	var svg = d3.select("#force").append('svg')
@@ -260,6 +277,15 @@ text {
 	  d.fy = null;
 	}
 	</script>
+
+<div class='container' id='about'>
+	<div class='row'>
+		<div class='col-xs-12 col-md-3 col-md-offset-9 col-lg-4 col-lg-offset-4'></div>
+			<h2>About</h2>
+			<p>This d3 force layout represents the most common two-word phrases in this sampling of presidential speeches. Each phrase is tied to the speech it is from, which is in turn tied to the President who gave the speech.</p>
+			<p>Sentiment was done on the phrases shown here if they appeared more than three times in a single speech. Supervised machine learning was performed on a relatively small data set of politically speeches; using this data as a primary source for any research is not recommended.</p>
+	</div>
+</div>
 
 </body>
 

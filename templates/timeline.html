@@ -38,6 +38,9 @@ body {
 
 h3 {
     font-family: 'Source Sans Pro', sans-serif;
+    color: #343642;
+    padding-top: .5em;
+    padding-left: 1em;
 }
 
 #timeline {
@@ -78,13 +81,13 @@ h3 {
     border-width: 2px;
     border-color: #979C9C;
 }
-/*.vis-group.pos {
-    background-color: lightgreen;
+.vis-group.pos {
+    background-color: rgba(70, 232, 101, .9);
 }
 
 .vis-group.neg {
-    background-color: pink;
-}*/
+    background-color: rgba(232, 93, 115, .9);
+}
 
 </style>
 
@@ -113,8 +116,12 @@ h3 {
   </div><!-- /.container -->
 </nav>
 
-<h3>Overall Sentiment of Presidential Speeches</h3>    
-<div id='timeline'></div>
+<h3>Overall Sentiment of Presidential Speeches</h3>
+<div class='container' id='timeline'>
+    <div class='row'>
+        <div class='col-xs-12 col-md-12 col-lg-12'></div>
+    </div>
+</div>    
 
     <script type='text/javascript'>
 
