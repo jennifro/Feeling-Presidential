@@ -141,12 +141,13 @@ def graph_data():
         else:
             prez = 'Obama'
 
+        url = s.link
         get_date = re.findall(r'[\w]+', s.title)   # splits and removes punctuation
         date = ' '.join(get_date[-3:])                 # grabs just the date from title
         if 'state' in s.title.lower():
-            title = prez + ' state of union'
+            title = prez + """<a href='{}'> state of union</a>""".format(url)
         else:
-            title = prez + ' inaugural'
+            title = prez + """<a href='{}'> inaugural</a>""".format(url)
 
         # title = ' '.join(get_date[:-3])     # title w/ no trailing space.
         sentiment = s.sentiment
