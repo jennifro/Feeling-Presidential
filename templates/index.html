@@ -203,7 +203,7 @@ text {
 	    var sizes = {1: 16, 2: 5, 3: 3, 4: 3, 5: 3}
 
 	    var cirColor = {
-	    	1: 'white',
+	    	1: 'rgb(151,156,156)',
 	    	2: 'rgb(30,79,89)',
 	    	3: 'rgb(91,227,116)',
 	    	4: 'rgb(43,113,127)', 
@@ -224,6 +224,14 @@ text {
 
 		node.append("title")
 	        .text(function(d) { return d.id; });
+
+
+	    // node.append("image")
+	    // 	.attr("xlink:href", function(d) { return d.icon; })
+	    //   .attr("x", "-12px")
+	    //   .attr("y", "-12px")
+	    //   .attr("width", "24px")
+	    //   .attr("height", "24px");
 
 	  
 		var text = svg.append("g").selectAll("text")
