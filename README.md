@@ -22,5 +22,15 @@ The set of 30 Inaugural and SotU speeches were analyzed using the trained classi
 
 In the dataset, if a bigram (set of 2 words) was repeated at least 3 times, I considered it a 'common' phrase to that speech. The most common bigrams were also analyzed for sentiment with Naive Bayes, and given a rating of either 'positive', 'negative', or 'neutral'. Neutral ratings were assigned to bigrams with conflicting sentiment - one word shows as positive and the other as negative.
 
- 
+#### Visualization
 
+This is a screenshot of the d3.js force layout displaying sentiment analysis of the most common phrases:
+![bigrams](https://cloud.githubusercontent.com/assets/12589761/18492967/ffec32ee-79c2-11e6-9e71-953f7d8dd81b.png)
+
+Here is a screenshot of the sentiment analysis of all speeches on a timeline:
+![timeline](https://cloud.githubusercontent.com/assets/12589761/18492994/2184ed38-79c3-11e6-8b8e-93ae2ce4f346.png)
+
+#### Special Thanks
+This project could not have been done without [this amazing blog](http://streamhacker.com/2010/05/10/text-classification-sentiment-analysis-naive-bayes-classifier/) on using NLTK for sentiment analysis. 
+
+Shout out to the supportive staff at [Hackbright Academy](https://hackbrightacademy.com/) who encouraged me to take on the challenge.
