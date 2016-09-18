@@ -1,0 +1,102 @@
+.navbar-default {
+    background-color: #962D3E;
+}
+
+.navbar-default .navbar-brand {
+    color: #343642;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 30px
+}
+
+#navbar-text {
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+body {
+    background-color: #F2EBC7;
+}
+
+h3 {
+    font-family: 'Source Sans Pro', sans-serif;
+    padding-top: .5em;
+    padding-left: 1em;
+    color: #343642;
+}
+
+.legend {
+    list-style: none;
+}
+
+.legend li {
+    float: left;
+    margin-right: 15px;
+    font-family: 'Cabin', sans-serif;
+    font-size: 14px;
+}
+
+.legend span {
+    border: 1px solid white;
+    float: left;
+    width: 12px;
+    height: 12px;
+    margin: 3px;
+
+}
+
+.legend .prez {
+    background-color: rgb(52,54,66);
+}
+
+.legend .title {
+    background-color: rgb(30,79,89);
+}
+
+.legend .pos {
+    background-color: rgb(91,227,116);
+}
+
+.legend .neut {
+    background-color: rgb(43,113,127);
+}
+
+.legend .neg {
+    background: rgb(150,45,62);
+}
+
+.link.prez-speech {
+    fill: none;
+    stroke: #343642;
+    stroke-width: 1.5px;
+}
+
+.link.speech-bigram {
+    fill: none;
+    stroke: #343642;
+    stroke-width: 1.5px;
+}
+
+.node1 {
+    stroke: black;
+    stroke-width: 2;
+}
+
+text {
+    font-family: 'Cabin', sans-serif;
+    font-weight: 400;
+}
+
+#about.h2 {
+    font-family: 'Cabin', sans-serif;
+    font-weight: 500;
+    color: #962D3E;
+}
+
+#about.p {
+    font-family: Source Sans Pro, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+}
