@@ -67,13 +67,7 @@ h3 {
     background: rgb(150,45,62);
 }
 
-.link.prez-speech {
-    fill: none;
-    stroke: #343642;
-    stroke-width: 1.5px;
-}
-
-.link.speech-bigram {
+.links {
     fill: none;
     stroke: #343642;
     stroke-width: 1.5px;

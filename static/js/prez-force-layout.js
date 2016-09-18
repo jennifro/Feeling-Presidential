@@ -16,15 +16,6 @@ var simulation = d3.forceSimulation()
 d3.json("/data.json", function(error, graph) {
     if (error) throw error;
 
-    var link = svg.append("g")
-        .attr("class", "links")
-        .selectAll("line")
-        .data(graph.links)
-        .enter().append("line")
-        .attr("class", function(d) { return "link " + d.type; })
-        .style('stroke-width', 1);
-      // .attr("stroke-width", '1px');
-
     var color = {
         1: 'rgb(52,54,66)',
         2: 'rgb(30,79,89)',
@@ -40,6 +31,15 @@ d3.json("/data.json", function(error, graph) {
         3: 'rgb(91,227,116)',
         4: 'rgb(43,113,127)',
         5: 'rgb(150,45,62)' };
+
+    var link = svg.append("g")
+        .attr("class", "links")
+        .selectAll("line")
+        .data(graph.links)
+        .enter().append("line")
+        .attr("class", function(d) { return "link " + d.type; });
+        // .style('stroke-width', 1);
+      // .attr("stroke-width", '1px');
 
     var node = svg.append("g")
         .attr("class", "nodes")

@@ -1,49 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Speech Timeline</title>     
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js"></script>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.css' type='text/css'>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link href='https://color.adobe.com/Gettysburg-color-theme-209416/' rel='stylesheet' type='text/html'>
-    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500|Source+Sans+Pro:600,700" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/css/timeline.css">
+{% extends 'base.html' %}
 
-</head>
+{% block title %}Prez Phrases{% endblock %}
 
-<body>
+{% block content %}
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <p class="navbar-brand">Feeling Presidential</p>
-    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js"></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.css' type='text/css'>
+<link rel="stylesheet" type="text/css" href="/static/css/timeline.css">
 
-    <!-- Collect the nav links for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav" id='navbar-text'>
-        <li><a href="/">Collocations</li><span class="sr-only">(current)</span></a></li>
-        <li><a href="/timeline">Speeches</a></li><span class="sr-only">(current)</span></a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container -->
-</nav>
-
-<h3>Overall Sentiment of Presidential Speeches</h3>
-<div class='container' id='timeline'>
-    <div class='row'>
-        <div class='col-xs-12 col-md-12 col-lg-12'></div>
-    </div>
-</div>    
+    <h3>Overall Sentiment of Presidential Speeches</h3>
+    <div class='container' id='timeline'>
+        <div class='row'>
+            <div class='col-xs-12 col-md-12 col-lg-12'></div>
+        </div>
+    </div>    
 
     <script type='text/javascript'>
 
@@ -72,5 +42,5 @@
         });
 
     </script>
-</body>
-</html>
+
+{% endblock %}

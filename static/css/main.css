@@ -1,0 +1,22 @@
+
+.navbar-default {
+    background-color: #962D3E;
+}
+
+.navbar-default .navbar-brand {
+    color: #343642;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 30px
+}
+
+#navbar-text {
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+body {
+    background-color: #F2EBC7;
+}
