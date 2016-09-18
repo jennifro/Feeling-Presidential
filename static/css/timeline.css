@@ -1,0 +1,75 @@
+
+.navbar-default {
+    background-color: #962D3E;
+}
+
+.navbar-default .navbar-brand {
+    color: #343642;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 30px
+}
+
+#navbar-text {
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+body {
+    background-color: #F2EBC7;
+}
+
+h3 {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #343642;
+    padding-top: .5em;
+    padding-left: 1em;
+}
+
+#timeline {
+    border: 5px solid black;
+}
+
+.vis-timeline {
+    border: 2px #343642;
+    font-family: 'Cabin', sans-serif;
+    font-weight: 500;
+}
+
+.vis-container {
+    border: 4px solid black;
+}
+
+.vis-item.vis-dot {
+    border-width: 5px;
+    border-radius: 5px;
+}
+
+.vis-item {
+    color: #E1E8E8;
+    background-color: #343642;
+    border-color: #962D3E;
+    border-width: 3px;
+    font-family: 'Cabin', sans-serif;
+    font-weight: 400;
+}
+
+.vis-item.vis-selected {
+    background-color: #348899;
+    border-color: #343642;
+    border-width: 5px;
+}
+
+.vis-time-axis .vis-grid.vis-minor {
+    border-width: 2px;
+    border-color: #979C9C;
+}
+.vis-group.pos {
+    background-color: rgba(70, 232, 101, .9);
+}
+
+.vis-group.neg {
+    background-color: rgba(232, 93, 115, .9);
+}
