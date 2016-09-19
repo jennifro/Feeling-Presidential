@@ -1,25 +1,3 @@
-.navbar-default {
-    background-color: #962D3E;
-}
-
-.navbar-default .navbar-brand {
-    color: #343642;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 600;
-    font-size: 30px
-}
-
-#navbar-text {
-    color: white;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 600;
-    font-size: 22px;
-}
-
-body {
-    background-color: #F2EBC7;
-}
-
 h3 {
     font-family: 'Source Sans Pro', sans-serif;
     padding-top: .5em;
@@ -67,10 +45,16 @@ h3 {
     background: rgb(150,45,62);
 }
 
-.links {
+line.link.prez-speech {
     fill: none;
-    stroke: #343642;
-    stroke-width: 1.5px;
+    stroke: pink;
+    stroke-width: 3px;
+}
+
+line.link.speech-bigram {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1px;
 }
 
 .node1 {
@@ -81,6 +65,10 @@ h3 {
 text {
     font-family: 'Cabin', sans-serif;
     font-weight: 400;
+}
+
+.text1 {
+    font-size: 20px;
 }
 
 #about.h2 {

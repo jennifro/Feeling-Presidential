@@ -1,6 +1,6 @@
 var width = 900;
 var height = 900;
-var radius = 10;
+var radius = 20;
 
 var svg = d3.select("#force").append('svg')
     .attr('width', width)
@@ -8,12 +8,11 @@ var svg = d3.select("#force").append('svg')
     
 
 var simulation = d3.forceSimulation()
-    // .alphaDecay(0.02)    // what causes the graph to move
     .velocityDecay(0.15)
-    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    .force("link", d3.forceLink().distance(10).id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody().strength(-100))
     .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("collide", d3.forceCollide(function(d) { return d.r + 20; }).strength(1).iterations(10))
+    .force("collide", d3.forceCollide(function(d) { return d.r + 20; }).strength(0.9).iterations(16))
     .force("x", d3.forceX(0))
     .force("y", d3.forceY(0));
 
@@ -37,7 +36,7 @@ d3.json("/data.json", function(error, graph) {
         5: 'rgb(150,45,62)' };
 
     var link = svg.append("g")
-        .attr("class", "links")
+        // .attr("class", "links")
         .selectAll("line")
         .data(graph.links)
         .enter().append("line")
@@ -64,12 +63,12 @@ d3.json("/data.json", function(error, graph) {
     var text = svg.append("g").selectAll("text")
         .data(graph.nodes)
         .enter().append("text")
-        .attr("dx", 15)
+        .attr("dx", 5)
         .attr("dy", ".31em")
+        .attr('text-anchor', 'start')
         .text(function(d) { return d.name; })
-        .attr('id', function(d) { return d.group; })
+        .attr('class', function(d) { return 'text' + d.group; })
         .style('fill', function(d) { return color[d.group]; });
-
 
     // node.append("image")
     //  .attr("xlink:href", function(d) { return d.icon; })
@@ -98,8 +97,8 @@ d3.json("/data.json", function(error, graph) {
             .attr("cy", function(d) { return d.y = Math.max(radius, Math.min(height - radius, d.y)); });
 
         text
-            .attr("x", function (d) { return d.x; })
-            .attr("y", function (d) { return d.y; });
+            .attr("x", function (d) { return d.x = Math.max(radius, Math.min(width - radius, d.x)); })
+            .attr("y", function (d) { return d.y = Math.max(radius, Math.min(height - radius, d.y)); });
 
          // node.each(collide(0.5));
     }
