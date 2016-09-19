@@ -8,11 +8,12 @@ var svg = d3.select("#force").append('svg')
     
 
 var simulation = d3.forceSimulation()
-    .alphaDecay(0.075)    // what causes the graph to move
+    // .alphaDecay(0.02)    // what causes the graph to move
+    .velocityDecay(0.15)
     .force("link", d3.forceLink().id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody().strength(-100))
     .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("collide", d3.forceCollide(function(d) { return d.r + 20; }).strength(0.75).iterations(10))
+    .force("collide", d3.forceCollide(function(d) { return d.r + 20; }).strength(1).iterations(10))
     .force("x", d3.forceX(0))
     .force("y", d3.forceY(0));
 
