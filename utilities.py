@@ -57,7 +57,7 @@ def make_nodes_and_links():
 
     for item in speech_lst:
         if 'state' in item.title.lower():
-            nodes.append({'id': item.title, 'group': 2, 'name': 'SoU'})
+            nodes.append({'id': item.title, 'group': 2, 'name': 'SotU'})
         else:
             nodes.append({'id': item.title, 'group': 2, 'name': 'I'})
 

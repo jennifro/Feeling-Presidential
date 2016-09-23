@@ -12,7 +12,7 @@ var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().distance(10).id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody().strength(-100))
     .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("collide", d3.forceCollide(function(d) { return d.r + 20; }).strength(0.9).iterations(16))
+    .force("collide", d3.forceCollide(function(d) { return d.r + 30; }).strength(0.9).iterations(16))
     .force("x", d3.forceX(0))
     .force("y", d3.forceY(0));
 
@@ -20,28 +20,44 @@ d3.json("/data.json", function(error, graph) {
     if (error) throw error;
 
     var color = {
-        1: 'rgb(52,54,66)',
-        2: 'rgb(30,79,89)',
-        3: 'rgb(91,227,116)',
-        4: 'rgb(43,113,127)',
-        5: 'rgb(150,45,62)'};
+        1: 'rgb(9, 33, 64)',
+        2: 'rgb(242, 71, 56)',
+        3: 'rgb(5, 166, 76)',
+        4: 'rgb(2, 73, 89)',
+        5: 'rgb(191, 42, 42)' };
 
-    var sizes = {1: 16, 2: 5, 3: 3, 4: 3, 5: 3};
+    var sizes = {1: 16, 2: 3, 3: 5, 4: 5, 5: 5 };
 
     var cirColor = {
-        1: 'rgb(151,156,156)',
-        2: 'rgb(30,79,89)',
-        3: 'rgb(91,227,116)',
-        4: 'rgb(43,113,127)',
-        5: 'rgb(150,45,62)' };
+        1: 'rgb(9, 33, 64)',
+        2: 'rgb(242, 71, 56',
+        3: 'rgb(5, 166, 76)',
+        4: 'rgb(2, 73, 89)',
+        5: 'rgb(191, 42, 42)' };
 
-    var link = svg.append("g")
-        // .attr("class", "links")
-        .selectAll("line")
+    var fontSize = {
+        1: 20,
+        2: 12,
+        3: 14,
+        4: 14,
+        5: 14 };
+
+    var linkWidth = {
+        "prez-speech": 2,
+        "speech-bigram": 1.5
+    };
+
+    var linkColor = {
+        "prez-speech": 'rgb(9, 33, 64)',
+        "speech-bigram": 'rgb(242, 71, 56)'
+    };
+
+    var link = svg.append("g").selectAll("line")
         .data(graph.links)
         .enter().append("line")
-        .attr("class", function(d) { return "link " + d.type; });
-        // .style('stroke-width', 1);
+        .attr("class", function(d) { return "link " + d.type; })
+        .style('stroke-width', function(d) { return linkWidth[d.type]; })
+        .style("stroke", function(d) { return linkColor[d.type]; });
       // .attr("stroke-width", '1px');
 
     var node = svg.append("g")
@@ -68,7 +84,8 @@ d3.json("/data.json", function(error, graph) {
         .attr('text-anchor', 'start')
         .text(function(d) { return d.name; })
         .attr('class', function(d) { return 'text' + d.group; })
-        .style('fill', function(d) { return color[d.group]; });
+        .style('fill', function(d) { return color[d.group]; })
+        .style('font-size', function(d) { return fontSize[d.group]; });
 
     // node.append("image")
     //  .attr("xlink:href", function(d) { return d.icon; })

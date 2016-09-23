@@ -17,7 +17,7 @@ h3 {
 }
 
 .legend span {
-    border: 1px solid white;
+    /*border: 1px solid white;*/
     float: left;
     width: 12px;
     height: 12px;
@@ -25,24 +25,24 @@ h3 {
 
 }
 
-.legend .prez {
-    background-color: rgb(52,54,66);
+.label-prez {
+    background-color: #092140;
 }
 
-.legend .title {
-    background-color: rgb(30,79,89);
+.label-title {
+    background-color: #F24738;
 }
 
-.legend .pos {
-    background-color: rgb(91,227,116);
+.label-pos {
+    background-color: #05A64C;
 }
 
-.legend .neut {
-    background-color: rgb(43,113,127);
+.label-neut {
+    background-color: #024959;
 }
 
-.legend .neg {
-    background: rgb(150,45,62);
+.label-neg {
+    background-color: #BF2A2A;
 }
 
 line.link.prez-speech {
@@ -65,10 +65,6 @@ line.link.speech-bigram {
 text {
     font-family: 'Cabin', sans-serif;
     font-weight: 400;
-}
-
-.text1 {
-    font-size: 20px;
 }
 
 #about.h2 {

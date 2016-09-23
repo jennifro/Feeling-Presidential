@@ -3,31 +3,31 @@
 {% block title %}Prez Phrases{% endblock %}
 
 {% block content %}
-
+<link rel="stylesheet" type="text/css" href="https://color.adobe.com/MOON-color-theme-2320307/">
 <link rel="stylesheet" type="text/css" href="/static/css/force.css">
 
 <h3>Most common repeated phrases</h3>
 <div class='container' id='legend-box'>
 	<div class='row'>
 		<div class='col-xs-12 col-md-12 col-lg-12'></div>
-		<ul class='legend'>
-			<li><span class='legend prez'></span>President</li>
-			<li><span class='legend title'></span>(I) Inaugural or (SoU) State of the Union</li>
-			<li><span class='legend pos'></span>Positive phrase</li>
-			<li><span class='legend neut'></span>Neutral phrase</li>
-			<li><span class='legend neg'></span>Negative phrase</li>
+			<span class='label label-prez'>President</span>
+			<span class='label label-title'>(I) Inaugural or (SotU) State of the Union </span>
+			<span class='label label-pos'>Positive</span>
+			<span class='label label-neut'>Neutral</span>
+			<span class='label label-neg'>Negative</span>
 		</ul>
 	</div>
 </div>
 
-	<div class='container' id='force'>
-		<div class='row'>
-			<div class='col-xs-12 col-md-12 col-lg-12'></div>
-		</div>
+<!-- Force layout -->
+<div class='container' id='force'>
+	<div class='row'>
+		<div class='col-xs-12 col-md-12 col-lg-12'></div>
 	</div>
+</div>
 
-	<script src="http://d3js.org/d3.v4.min.js"></script>
-	<script type= 'text/javascript' src="/static/js/prez-force-layout.js"></script>
+<script src="http://d3js.org/d3.v4.min.js"></script>
+<script type= 'text/javascript' src="/static/js/prez-force-layout.js"></script>
 
 	<div class='container' id='about'>
 		<div class='row'>

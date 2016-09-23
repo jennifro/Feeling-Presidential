@@ -17,6 +17,11 @@
     font-size: 22px;
 }
 
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: #F2C777;
+    color: #F24738;
+}
+
 body {
-    background-color: #F2EBC7;
+    background-color: #F2C777;
 }

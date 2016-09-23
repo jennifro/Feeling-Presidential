@@ -18,6 +18,29 @@
 
 <html>
 <body>
+  <!-- Modal -->
+  <div class="modal fade" id="aboutProj" tabindex="-1" role="dialog" aria-labelledby="titleLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="titleLabel">About Feeling Presidential</h4>
+        </div>
+        <div class="modal-body">
+          <p>Feeling Presidential is data visualization of common phrases and sentiment analysis in U.S. presidential speeches, analyzing the ten most recent U.S. Presidents, from Kennedy to Obama.</p><p>Using machine learning, a Naive Bayes classifier was trained on a hand-tagged set of 70 American political speeches, grouped into positive and negative categories. Sentiment analysis is performed on each Presidents' inaugural speech, their first and last State of the Union speeches, and the most common phrases in each speech.</p>
+          <p>This was a <a href="https://hackbrightacademy.com/blog/51-brilliant-web-apps-built-women-engineers/">final project</a> completed in a month for <a href="https://hackbrightacademy.com/">Hackbright Academy</a>, a coding bootcamp for female software engineers. While the data seen here represents the exact output of the classifier, machine learning requires a much higher training set of hundreds (if not thousands) of pre-classified inputs in order to result in higher accuracy. The sentiment analysis presented here is <b>not recommended</b> for use in research, media, or proving your point in an Internet argument.</p>
+          <p>For more detailed info on the how this project was done, please see/fork the GitHub repository <a href="https://github.com/cabbageyful/Feeling-Presidential">here</a>.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Navigation bar -->
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,11 +59,12 @@
         <ul class="nav navbar-nav" id='navbar-text'>
           <li><a href="/">Phrase Sentiment</li><span class="sr-only">(current)</span></a></li>
           <li><a href="/timeline">Speech Sentiment</a></li><span class="sr-only">(current)</span></a></li>
+          <li><a href="#aboutProj" data-toggle="modal">About</a></li>
         </ul>
+        
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
   </nav>
-   
 
 {% block content %} put content here {% endblock %}
 </body>
