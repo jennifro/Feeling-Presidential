@@ -9,32 +9,32 @@
 <h3>Most common repeated phrases</h3>
 <div class='container' id='legend-box'>
 	<div class='row'>
-		<div class='col-xs-12 col-md-12 col-lg-12'></div>
-			<span class='label label-prez'>President</span>
-			<span class='label label-title'>(I) Inaugural or (SotU) State of the Union </span>
-			<span class='label label-pos'>Positive</span>
-			<span class='label label-neut'>Neutral</span>
-			<span class='label label-neg'>Negative</span>
-		</ul>
+		<div class='col-xs-12 col-md-12 col-lg-12'>
+			<span class='label label-prez' data-toggle="tooltip" data-trigger="click hover" data-placement="bottom" title="To minimize data variance caused by natural changes in human language, only the last 10 U.S. Presidents were analyzed for sentiment. Interestingly, all are also the only presidents to have been in the television era.">President</span>
+			<span class='label label-title' data-toggle="tooltip" data-trigger="click hover" data-placement="bottom" title="For consistency, all presidents were analyzed on speeches they have in common: the inaugural speech, the first State of the Union, and last State of the Union. President Gerald Ford did not technically have an inaugural address.">(I) Inaugural or (SotU) State of the Union</span>
+			<span class='label label-pos' data-toggle="tooltip" data-trigger="click hover" data-placement="bottom" title="Two-word phrase that came out with a positive sentiment.">Positive</span>
+			<span class='label label-neut' data-toggle="tooltip" data-trigger="click hover" data-placement="top" title="These represent two word phrases where one word was analyzed as positive and the other as negative.">Neutral</span>
+			<span class='label label-neg' data-toggle="tooltip" data-trigger="click hover" data-placement="top" title="Two-word phrases analyzed as negative.">Negative</span>
+		</div>
 	</div>
 </div>
 
 <!-- Force layout -->
 <div class='container' id='force'>
 	<div class='row'>
-		<div class='col-xs-12 col-md-12 col-lg-12'></div>
+		<div class='col-xs-12 col-md-12 col-lg-9'></div>
 	</div>
 </div>
 
 <script src="http://d3js.org/d3.v4.min.js"></script>
 <script type= 'text/javascript' src="/static/js/prez-force-layout.js"></script>
 
-	<div class='container' id='about'>
+	<div class='container' id='about' >
 		<div class='row'>
 			<div class='col-xs-12 col-md-3 col-md-offset-9 col-lg-4 col-lg-offset-4'></div>
 				<h2>About</h2>
-				<p>This d3 force layout represents the most common two-word phrases in this sampling of presidential speeches. Each phrase is tied to the speech it is from, which is in turn tied to the President who gave the speech.</p>
-				<p>Sentiment was done on the phrases shown here if they appeared more than three times in a single speech. Supervised machine learning was performed on a relatively small data set of politically speeches; using this data as a primary source for any research is not recommended.</p>
+				<!-- <p>This d3 force layout represents the most common two-word phrases in this sampling of presidential speeches. Each phrase is tied to the speech it is from, which is in turn tied to the President who gave the speech.</p>
+				<p>Sentiment was done on the phrases shown here if they appeared more than three times in a single speech. Supervised machine learning was performed on a relatively small data set of politically speeches; using this data as a primary source for any research is not recommended.</p> -->
 		</div>
 	</div>
 

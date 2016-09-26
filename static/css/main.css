@@ -1,24 +1,36 @@
+.modal-backdrop {
+  z-index: -1;
+}
 
 .navbar-default {
     background-color: #962D3E;
 }
 
 .navbar-default .navbar-brand {
-    color: #343642;
+    color: #024959;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 600;
     font-size: 30px
 }
 
+.navbar-default .navbar-brand > p:hover {
+    color: #F24738;
+    background-color: #F2C777;
+}
+
+.navbar-default .navbar-nav > li {
+    color: #F24738;
+}
+
 #navbar-text {
-    color: white;
+    color: #F2C777;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 600;
     font-size: 22px;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    background-color: #F2C777;
+    background-color: #024959;
     color: #F24738;
 }
 

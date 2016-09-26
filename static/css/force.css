@@ -5,24 +5,28 @@ h3 {
     color: #343642;
 }
 
-.legend {
-    list-style: none;
-}
-
-.legend li {
-    float: left;
-    margin-right: 15px;
-    font-family: 'Cabin', sans-serif;
-    font-size: 14px;
-}
-
-.legend span {
-    /*border: 1px solid white;*/
-    float: left;
-    width: 12px;
-    height: 12px;
+#legend-box {
     margin: 3px;
+    padding-left: 1em;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
 
+.label {
+    /*border: 1px solid white;*/
+    font-family: 'Cabin', sans-serif;
+    font-weight: 400;
+    margin: 3px;
+    font-size: 14px;
+
+}
+
+.aboutForce {
+    background-color: green; 
+    color: white; 
+    border: 1px solid green;
+    padding: 15px;
+    font-size: 20px;
 }
 
 .label-prez {
@@ -45,20 +49,8 @@ h3 {
     background-color: #BF2A2A;
 }
 
-line.link.prez-speech {
-    fill: none;
-    stroke: pink;
-    stroke-width: 3px;
-}
-
-line.link.speech-bigram {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1px;
-}
-
 .node1 {
-    stroke: black;
+    stroke: white;
     stroke-width: 2;
 }
 
