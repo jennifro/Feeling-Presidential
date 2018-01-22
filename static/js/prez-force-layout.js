@@ -2,43 +2,22 @@ var width = 900;
 var height = 900;
 var radius = 20;
 
-var toolTip = "This d3 force layout represents the most common two-word phrases in this sampling of presidential speeches. Each phrase is tied to the speech it is from, which is in turn tied to the President who gave the speech. " +
-"Sentiment was done on the phrases shown here if they appeared more than three times in a single speech. Supervised machine learning was performed on a relatively small data set of politically speeches; using this data as a primary source for any research is not recommended.";
-
 var svg = d3.select("#force").append('svg')
     .attr('width', width)
-    .attr('height', height)
-    .attr('title', toolTip);
-
-$("svg").tooltip({
-    'container': 'body',
-    'placement': 'right',
-    'tooltipClass': "aboutForce"
-});
+    .attr('height', height);
     
 
 var simulation = d3.forceSimulation()
-    .alphaTarget(1)
-    .velocityDecay(0.35)
-    .force("link", d3.forceLink().distance(20).id(function(d) { return d.id; }))
+    .velocityDecay(0.15)
+    .force("link", d3.forceLink().distance(10).id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody().strength(-100))
     .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("collide", d3.forceCollide(function(d) { return d.r + 20; }).strength(0.9).iterations(10))
-    .force("x", d3.forceX(0.25))
-    .force("y", d3.forceY(0.25));
+    .force("collide", d3.forceCollide(function(d) { return d.r + 30; }).strength(0.9).iterations(16))
+    .force("x", d3.forceX(0))
+    .force("y", d3.forceY(0));
 
 d3.json("/data.json", function(error, graph) {
     if (error) throw error;
-
-    // create image property that will correspond to jpg file.
-    for (var node in graph) {
-        if (node.group === 1) {
-            node.icon = node.name;
-            node.icon = node.icon.toLowerCase();
-            node.icon = node.icon.replace(/ /g,'');
-            node.icon += '.jpg';
-        }
-    }
 
     var color = {
         1: 'rgb(9, 33, 64)',
@@ -48,6 +27,13 @@ d3.json("/data.json", function(error, graph) {
         5: 'rgb(191, 42, 42)' };
 
     var sizes = {1: 16, 2: 3, 3: 5, 4: 5, 5: 5 };
+
+    var cirColor = {
+        1: 'rgb(9, 33, 64)',
+        2: 'rgb(242, 71, 56',
+        3: 'rgb(5, 166, 76)',
+        4: 'rgb(2, 73, 89)',
+        5: 'rgb(191, 42, 42)' };
 
     var fontSize = {
         1: 20,
@@ -80,7 +66,7 @@ d3.json("/data.json", function(error, graph) {
         .data(graph.nodes)
         .enter().append("circle")
         .attr("r", function(d) { return sizes[d.group]; })
-        .attr("fill", function(d) { return color[d.group]; })
+        .attr("fill", function(d) { return cirColor[d.group]; })
         .attr('class', function(d) { return 'node' + d.group; })
         .call(d3.drag()
             .on("start", dragstarted)
@@ -90,13 +76,6 @@ d3.json("/data.json", function(error, graph) {
     node.append("title")
         .text(function(d) { return d.id; });
   
-    node.append("image")
-     .attr("xlink:href", function(d) { return d.icon; })
-      .attr("x", "-32px")
-      .attr("y", "-32px")
-      .attr("width", "24px")
-      .attr("height", "24px");
-
     var text = svg.append("g").selectAll("text")
         .data(graph.nodes)
         .enter().append("text")
@@ -107,6 +86,13 @@ d3.json("/data.json", function(error, graph) {
         .attr('class', function(d) { return 'text' + d.group; })
         .style('fill', function(d) { return color[d.group]; })
         .style('font-size', function(d) { return fontSize[d.group]; });
+
+    // node.append("image")
+    //  .attr("xlink:href", function(d) { return d.icon; })
+    //   .attr("x", "-12px")
+    //   .attr("y", "-12px")
+    //   .attr("width", "24px")
+    //   .attr("height", "24px");
 
     simulation
         .nodes(graph.nodes)
@@ -137,7 +123,7 @@ d3.json("/data.json", function(error, graph) {
 });
 
 function dragstarted(d) {
-  if (!d3.event.active) simulation.alphaTarget(1).restart();
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
   d.fx = d.x;
   d.fy = d.y;
 }

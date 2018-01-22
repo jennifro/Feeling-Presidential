@@ -1,29 +1,22 @@
 h3 {
     font-family: 'Source Sans Pro', sans-serif;
-    color: #092140;
+    color: #343642;
     padding-top: .5em;
     padding-left: 1em;
 }
 
 #timeline {
-    border: 5px solid #092140;
-    background-color: grey;
+    border: 5px solid black;
 }
 
 .vis-timeline {
-    border: 2px #092140;
+    border: 2px #343642;
     font-family: 'Cabin', sans-serif;
     font-weight: 500;
 }
 
-.vis-label.pos {
-    background-color: rgba(70, 232, 101, .75);
-    color: black;
-}
-
-.vis-label.neg {
-    background-color: rgba(232, 93, 115, .75);
-    color: black;
+.vis-container {
+    border: 4px solid black;
 }
 
 .vis-item.vis-dot {
@@ -33,36 +26,23 @@ h3 {
 
 .vis-item {
     color: #E1E8E8;
-    background-color: #024959;
-    border-color: #092140;
+    background-color: #343642;
+    border-color: #962D3E;
     border-width: 3px;
     font-family: 'Cabin', sans-serif;
     font-weight: 400;
 }
 
-.vis-item-content > a {
-    color: #000000;
-}
-
-.vis-item-content > a:hover {
-    color: #BF2A2A;
-}
-
 .vis-item.vis-selected {
     background-color: #348899;
-    border-color: #BF2A2A;
+    border-color: #343642;
     border-width: 5px;
 }
 
 .vis-time-axis .vis-grid.vis-minor {
     border-width: 2px;
-    border-color: black;
+    border-color: #979C9C;
 }
-
-.vis-time-axis .vis-text {
-    color: black;
-}
-
 .vis-group.pos {
     background-color: rgba(70, 232, 101, .9);
 }

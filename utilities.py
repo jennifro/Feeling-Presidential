@@ -52,7 +52,6 @@ def make_nodes_and_links():
     # all pertinent nodes with group identifier & name that will be passed to d3
     nodes = []
 
-    # {id: Johnson, group/basic node type: 1, name: item.name, }
     for item in prez_lst:
         nodes.append({'id': item.name, 'group': 1, 'name': item.name})
 
