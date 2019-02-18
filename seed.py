@@ -15,12 +15,13 @@ data.close()
 def load_presidents():
     """Seed database with relevant presidents."""
 
-     # cuz I'll probably redo db multiple times in testing
+    # clears the database before seeding anew
     SpeechCollocation.query.delete()
     Collocation.query.delete()
     Speech.query.delete()
     President.query.delete()
 
+    # checks if the president's name is already in the President table. If not, then adds.
     for text in all_speech_info:
 
         name = ''.join(text['president'])
@@ -62,6 +63,7 @@ def load_collocations():
     """
 
     all_bigrams = top_bigrams()  # { prezname: { speech1: [(phrases) (moarphrases)] } }
+    # print all_bigrams
     sentiments = bigram_sentiment()    # {(phrase): 'pos', 'neutral', 'neg'}
 
     for prez in all_bigrams:  # returns list for each prez
@@ -84,6 +86,8 @@ def load_collocations():
 
                 current_bigrams = SpeechCollocation(speech_id=current_speech.speech_id,
                                                     phrase_id=new_bigram.phrase_id)
+
+                print current_bigrams
 
                 db.session.add(current_bigrams)
 
