@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, render_template
 # from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db
@@ -6,7 +7,8 @@ from utilities import make_nodes_and_links, graph_data
 
 app = Flask(__name__)
 
-app.secret_key = "whatevs"
+# app.secret_key = "whatevs"
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'whatevs')
 
 
 @app.route('/data.json')
@@ -37,12 +39,16 @@ def second_page():
 
     return render_template('timeline.html')
 
+@app.route('/error')
+def error():
+    raise Exception('Error!')
+
 
 if __name__ == "__main__":
-    app.debug = True
 
-    # DebugToolbarExtension(app)
+    connect_to_db(app, os.environ.get('DATABASE_URL'))
 
-    connect_to_db(app)
+    DEBUG = "NO_DEBUG" not in os.environ
+    PORT = int(os.environ.get("PORT", 5000))
 
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=PORT, debug=DEBUG)

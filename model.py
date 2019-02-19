@@ -79,12 +79,13 @@ class SpeechCollocation(db.Model):
 
 
 
-def connect_to_db(app, db_uri='postgresql:///speeches'):
+def connect_to_db(app, db_uri=None):
     """Connect database to Flask app."""
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgres:///speeches'
     db.app = app
     db.init_app(app)
+
 
 
 def test_data():
