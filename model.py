@@ -123,4 +123,4 @@ def test_data():
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
-    print 'Connected to DB!'
+    # print('Connected to DB!')
