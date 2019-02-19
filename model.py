@@ -7,11 +7,8 @@ db = SQLAlchemy()
 
 # DB_URI = 'postgresql:///speeches'
 
-## TODO: FIGURE OUT AUTOINCREMENT RESET
-
-
 class President(db.Model):
-    """docstring for President"""
+    """A table of the presidents who delivered the speeches analyzed."""
 
     __tablename__ = 'presidents'
 
@@ -29,7 +26,7 @@ class President(db.Model):
 
 
 class Speech(db.Model):
-    """docstring for Speech"""
+    """A table of the speeches (inaugural, first & last state of the union) analyzed."""
 
     __tablename__ = 'speeches'
 
@@ -49,7 +46,7 @@ class Speech(db.Model):
 
 
 class Collocation(db.Model):
-    """docstring for Collocations"""
+    """A table of the collocations (bigrams) that appear in the speeches"""
 
     __tablename__ = 'collocations'
 
@@ -64,7 +61,9 @@ class Collocation(db.Model):
 
 
 class SpeechCollocation(db.Model):
-    """docstring for SpeechCollocation"""
+    """A many-to-many relationship table for the most common bigrams (collocations)
+    & which speeches to which they correspond.
+    """
 
     __tablename__ = 'SpeechCollocations'
 
@@ -77,6 +76,7 @@ class SpeechCollocation(db.Model):
 
     def __repr__(self):
         return '<ID={}, Speech ID={}, Phrase ID={}>'.format(self.connect_id, self.speech_id, self.phrase_id)
+
 
 
 def connect_to_db(app, db_uri='postgresql:///speeches'):

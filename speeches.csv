@@ -1,0 +1,31 @@
+speech_id,title,speaker,link,sentiment
+1,"Inaugural Address (January 20, 1961)",1,http://millercenter.org/president/kennedy/speeches/speech-3365,pos
+2,"State of the Union Address (January 14, 1963)",1,http://millercenter.org/president/kennedy/speeches/speech-5762,pos
+3,"State of the Union (January 8, 1964)",2,http://millercenter.org/president/lbjohnson/speeches/speech-3382,pos
+4,"State of the Union Address (January 22, 1970)",3,http://millercenter.org/president/nixon/speeches/speech-3889,pos
+5,"First Inaugural Address (January 20, 1969)",3,http://millercenter.org/president/nixon/speeches/speech-3587,pos
+6,"Inaugural Address (January 20, 1965)",2,http://millercenter.org/president/lbjohnson/speeches/speech-4031,pos
+7,"State of the Union Address (January 11, 1962)",1,http://millercenter.org/president/kennedy/speeches/speech-5742,pos
+8,"State of the Union Address (January 14, 1969)",2,http://millercenter.org/president/lbjohnson/speeches/speech-5667,pos
+9,"State of the Union Address (January 30, 1974)",3,http://millercenter.org/president/nixon/speeches/speech-3887,pos
+10,"Inaugural Address (January 20, 1977)",4,http://millercenter.org/president/carter/speeches/speech-3286,neg
+11,"State of the Union Address (January 19, 1978)",4,http://millercenter.org/president/carter/speeches/speech-5537,pos
+12,"State of the Union Address (January 15, 1975)",5,http://millercenter.org/president/ford/speeches/speech-5499,pos
+13,"Remarks on Taking the Oath of Office (August 9, 1974)",5,http://millercenter.org/president/ford/speeches/speech-3390,neg
+14,"State of the Union Address (January 23, 1980)",4,http://millercenter.org/president/carter/speeches/speech-3404,pos
+15,"State of the Union Address (January 12, 1977)",5,http://millercenter.org/president/ford/speeches/speech-5600,pos
+16,"State of the Union Address (January 25, 1988)",6,http://millercenter.org/president/reagan/speeches/speech-5684,pos
+17,"First Inaugural Address (January 20, 1981)",6,http://millercenter.org/president/reagan/speeches/speech-3407,pos
+18,"State of the Union Address (January 26, 1982)",6,http://millercenter.org/president/reagan/speeches/speech-5679,pos
+19,"Inaugural Address (January 20, 1989)",7,http://millercenter.org/president/bush/speeches/speech-3419,pos
+20,"State of the Union Address (January 31, 1990)",7,http://millercenter.org/president/bush/speeches/speech-3423,pos
+21,"State of the Union Address (January 28, 1992)",7,http://millercenter.org/president/bush/speeches/speech-5531,pos
+22,"First Inaugural (January 20, 1993)",8,http://millercenter.org/president/clinton/speeches/speech-3434,pos
+23,"State of the Union Address (January 27, 2000)",8,http://millercenter.org/president/clinton/speeches/speech-5497,pos
+24,"State of the Union Address (January 25, 1994)",8,http://millercenter.org/president/clinton/speeches/speech-3437,pos
+25,"First Inaugural Address (January 20, 2001)",9,http://millercenter.org/president/gwbush/speeches/speech-3645,pos
+26,"State of the Union Address (January 29, 2002)",9,http://millercenter.org/president/gwbush/speeches/speech-4540,pos
+27,"Inaugural Address (January 20, 2009)",10,http://millercenter.org/president/obama/speeches/speech-4453,pos
+28,"2016 State of the Union Address (January 12, 2016)",10,http://millercenter.org/president/obama/speeches/2016-state-of-the-union-address,pos
+29,"State of the Union Address (January 28, 2008)",9,http://millercenter.org/president/gwbush/speeches/speech-4454,pos
+30,"2010 State of the Union Address (January 27, 2010)",10,http://millercenter.org/president/obama/speeches/speech-5706,pos
