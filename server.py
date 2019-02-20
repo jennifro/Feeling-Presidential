@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 # app.secret_key = "whatevs"
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'whatevs')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 @app.route('/data.json')
