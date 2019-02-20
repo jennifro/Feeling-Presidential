@@ -1,12 +1,12 @@
 import os
 from flask import Flask, jsonify, render_template
 # from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db
+from model import db, connect_to_db
 from utilities import make_nodes_and_links, graph_data
 
 
 app = Flask(__name__)
-
+db.init_app(app)
 # app.secret_key = "whatevs"
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'whatevs')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
