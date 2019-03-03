@@ -1,8 +1,13 @@
 import regex as re
 from nltk.corpus import stopwords
-from model import db, connect_to_db, President, Speech, Collocation
+from models import President, Speech, Collocation
 
 excess = stopwords.words('english')
+
+# get relevant data from database
+all_speeches = Speech.query.all()
+phrase_lst = Collocation.query.all()
+prez_lst = President.query.all()
 
 
 def str_parser(sentence):
@@ -44,10 +49,6 @@ def make_nodes_and_links():
 
     """
 
-    # list of the prez name & speech title nodes to define paths/links
-    speech_lst = Speech.query.all()
-    phrase_lst = Collocation.query.all()
-    prez_lst = President.query.all()
 
     # all pertinent nodes with group identifier & name that will be passed to d3
     nodes = []
@@ -55,7 +56,7 @@ def make_nodes_and_links():
     for item in prez_lst:
         nodes.append({'id': item.name, 'group': 1, 'name': item.name})
 
-    for item in speech_lst:
+    for item in all_speeches:
         if 'state' in item.title.lower():
             nodes.append({'id': item.title, 'group': 2, 'name': 'SotU'})
         else:
@@ -79,7 +80,7 @@ def make_nodes_and_links():
 
     node_links = []
 
-    for s in speech_lst:
+    for s in all_speeches:
         node_links.append({'speech': s.title, 'name': s.prez.name})
 
     # list of bigram/phrase & speech title nodes
@@ -159,11 +160,3 @@ def graph_data():
 
     return items, groups
 
-
-#################################
-# for testing this file only, must connect to db.
-
-if __name__ == '__main__':
-    from server import app
-    connect_to_db(app)
-    # print 'Connected to DB!'

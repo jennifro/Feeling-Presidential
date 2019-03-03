@@ -1,12 +1,12 @@
-import os
+# Database models for the app.
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from app import app
 
-# app = Flask(__name__)
 
-db = SQLAlchemy()
+db = SQLAlchemy(app)
 
-# DB_URI = 'postgresql:///speeches'
 
 class President(db.Model):
     """A table of the presidents who delivered the speeches analyzed."""
@@ -21,9 +21,6 @@ class President(db.Model):
     def __repr__(self):
         return '<ID={}, Name={}>'.format(self.prez_id, self.name)
 
-    # POST MVP:
-    # start_yr = db.Column(db.Integer, nullable=False)
-    # end_yr = db.Column(db.Integer, nullable=False)
 
 
 class Speech(db.Model):
@@ -79,16 +76,6 @@ class SpeechCollocation(db.Model):
         return '<ID={}, Speech ID={}, Phrase ID={}>'.format(self.connect_id, self.speech_id, self.phrase_id)
 
 
-
-def connect_to_db(app, db_uri=None):
-    """Connect database to Flask app."""
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'postgres:///speeches'
-    db.app = app
-    db.init_app(app)
-
-
-
 def test_data():
     """Create sample data for testing."""
 
@@ -119,9 +106,3 @@ def test_data():
     db.session.add_all([p1, p2, p3, s1, s2, s3, c1, c2, c3, sc1, sc2, sc3])
     db.session.commit()
 
-#################
-
-if __name__ == '__main__':
-    from server import app
-    connect_to_db(app)
-    # print('Connected to DB!')

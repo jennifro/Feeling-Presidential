@@ -1,7 +1,8 @@
 import json
-from model import connect_to_db, db
-from model import President, Speech, Collocation, SpeechCollocation
-from server import app
+
+from models import db
+from models import President, Speech, Collocation, SpeechCollocation
+
 from bigramfinder import top_bigrams, bigram_sentiment
 from analyzer import analyze_speeches
 
@@ -95,7 +96,6 @@ def load_collocations():
 
 ############################
 if __name__ == '__main__':
-    connect_to_db(app)
 
     db.create_all()
 
