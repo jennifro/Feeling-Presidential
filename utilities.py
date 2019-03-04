@@ -160,10 +160,4 @@ def graph_data():
     return items, groups
 
 
-#################################
-# for testing this file only, must connect to db.
 
-if __name__ == '__main__':
-    from server import app
-    connect_to_db(app)
-    # print 'Connected to DB!'

@@ -5,7 +5,7 @@ var radius = 20;
 var svg = d3.select("#force").append('svg')
     .attr('width', width)
     .attr('height', height);
-    
+
 
 var simulation = d3.forceSimulation()
     .velocityDecay(0.15)
@@ -16,7 +16,7 @@ var simulation = d3.forceSimulation()
     .force("x", d3.forceX(0))
     .force("y", d3.forceY(0));
 
-d3.json("/data.json", function(error, graph) {
+d3.json("/forceData", function(error, graph) {
     if (error) throw error;
 
     var color = {
@@ -75,7 +75,7 @@ d3.json("/data.json", function(error, graph) {
 
     node.append("title")
         .text(function(d) { return d.id; });
-  
+
     var text = svg.append("g").selectAll("text")
         .data(graph.nodes)
         .enter().append("text")

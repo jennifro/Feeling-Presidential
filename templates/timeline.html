@@ -16,30 +16,184 @@
     </div>
 
     <script type='text/javascript'>
+        let staticData = {
+            "groups": [
+              {
+                "className": "pos",
+                "content": "positive",
+                "id": "pos"
+              },
+              {
+                "className": "neg",
+                "content": "negative",
+                "id": "neg"
+              }
+            ],
+            "items": [
+              {
+                "content": "Kennedy<a href='http://millercenter.org/president/kennedy/speeches/speech-3365'> inaugural</a>",
+                "group": "pos",
+                "start": "January 20 1961"
+              },
+              {
+                "content": "Kennedy<a href='http://millercenter.org/president/kennedy/speeches/speech-5762'> state of union</a>",
+                "group": "pos",
+                "start": "January 14 1963"
+              },
+              {
+                "content": "Johnson<a href='http://millercenter.org/president/lbjohnson/speeches/speech-3382'> state of union</a>",
+                "group": "pos",
+                "start": "January 8 1964"
+              },
+              {
+                "content": "Nixon<a href='http://millercenter.org/president/nixon/speeches/speech-3889'> state of union</a>",
+                "group": "pos",
+                "start": "January 22 1970"
+              },
+              {
+                "content": "Nixon<a href='http://millercenter.org/president/nixon/speeches/speech-3587'> inaugural</a>",
+                "group": "pos",
+                "start": "January 20 1969"
+              },
+              {
+                "content": "Johnson<a href='http://millercenter.org/president/lbjohnson/speeches/speech-4031'> inaugural</a>",
+                "group": "pos",
+                "start": "January 20 1965"
+              },
+              {
+                "content": "Kennedy<a href='http://millercenter.org/president/kennedy/speeches/speech-5742'> state of union</a>",
+                "group": "pos",
+                "start": "January 11 1962"
+              },
+              {
+                "content": "Johnson<a href='http://millercenter.org/president/lbjohnson/speeches/speech-5667'> state of union</a>",
+                "group": "pos",
+                "start": "January 14 1969"
+              },
+              {
+                "content": "Nixon<a href='http://millercenter.org/president/nixon/speeches/speech-3887'> state of union</a>",
+                "group": "pos",
+                "start": "January 30 1974"
+              },
+              {
+                "content": "Carter<a href='http://millercenter.org/president/carter/speeches/speech-3286'> inaugural</a>",
+                "group": "neg",
+                "start": "January 20 1977"
+              },
+              {
+                "content": "Carter<a href='http://millercenter.org/president/carter/speeches/speech-5537'> state of union</a>",
+                "group": "pos",
+                "start": "January 19 1978"
+              },
+              {
+                "content": "Ford<a href='http://millercenter.org/president/ford/speeches/speech-5499'> state of union</a>",
+                "group": "pos",
+                "start": "January 15 1975"
+              },
+              {
+                "content": "Ford<a href='http://millercenter.org/president/ford/speeches/speech-3390'> inaugural</a>",
+                "group": "neg",
+                "start": "August 9 1974"
+              },
+              {
+                "content": "Carter<a href='http://millercenter.org/president/carter/speeches/speech-3404'> state of union</a>",
+                "group": "pos",
+                "start": "January 23 1980"
+              },
+              {
+                "content": "Ford<a href='http://millercenter.org/president/ford/speeches/speech-5600'> state of union</a>",
+                "group": "pos",
+                "start": "January 12 1977"
+              },
+              {
+                "content": "Reagan<a href='http://millercenter.org/president/reagan/speeches/speech-5684'> state of union</a>",
+                "group": "pos",
+                "start": "January 25 1988"
+              },
+              {
+                "content": "Reagan<a href='http://millercenter.org/president/reagan/speeches/speech-3407'> inaugural</a>",
+                "group": "pos",
+                "start": "January 20 1981"
+              },
+              {
+                "content": "Reagan<a href='http://millercenter.org/president/reagan/speeches/speech-5679'> state of union</a>",
+                "group": "pos",
+                "start": "January 26 1982"
+              },
+              {
+                "content": "H.W. Bush<a href='http://millercenter.org/president/bush/speeches/speech-3419'> inaugural</a>",
+                "group": "pos",
+                "start": "January 20 1989"
+              },
+              {
+                "content": "H.W. Bush<a href='http://millercenter.org/president/bush/speeches/speech-3423'> state of union</a>",
+                "group": "pos",
+                "start": "January 31 1990"
+              },
+              {
+                "content": "H.W. Bush<a href='http://millercenter.org/president/bush/speeches/speech-5531'> state of union</a>",
+                "group": "pos",
+                "start": "January 28 1992"
+              },
+              {
+                "content": "Clinton<a href='http://millercenter.org/president/clinton/speeches/speech-3434'> inaugural</a>",
+                "group": "pos",
+                "start": "January 20 1993"
+              },
+              {
+                "content": "Clinton<a href='http://millercenter.org/president/clinton/speeches/speech-5497'> state of union</a>",
+                "group": "pos",
+                "start": "January 27 2000"
+              },
+              {
+                "content": "Clinton<a href='http://millercenter.org/president/clinton/speeches/speech-3437'> state of union</a>",
+                "group": "pos",
+                "start": "January 25 1994"
+              },
+              {
+                "content": "G.W. Bush<a href='http://millercenter.org/president/gwbush/speeches/speech-3645'> inaugural</a>",
+                "group": "pos",
+                "start": "January 20 2001"
+              },
+              {
+                "content": "G.W. Bush<a href='http://millercenter.org/president/gwbush/speeches/speech-4540'> state of union</a>",
+                "group": "pos",
+                "start": "January 29 2002"
+              },
+              {
+                "content": "Obama<a href='http://millercenter.org/president/obama/speeches/speech-4453'> inaugural</a>",
+                "group": "pos",
+                "start": "January 20 2009"
+              },
+              {
+                "content": "Obama<a href='http://millercenter.org/president/obama/speeches/2016-state-of-the-union-address'> state of union</a>",
+                "group": "pos",
+                "start": "January 12 2016"
+              },
+              {
+                "content": "G.W. Bush<a href='http://millercenter.org/president/gwbush/speeches/speech-4454'> state of union</a>",
+                "group": "pos",
+                "start": "January 28 2008"
+              },
+              {
+                "content": "Obama<a href='http://millercenter.org/president/obama/speeches/speech-5706'> state of union</a>",
+                "group": "pos",
+                "start": "January 27 2010"
+              }
+            ]
+          }
 
-        $.ajax({
-            url: '/timeline.json',
-            success: function (data) {
-                var container = $('#timeline')[0];
-                var items = new vis.DataSet(data.items);
-                console.log(items);
-                var groups = new vis.DataSet(data.groups)
-                var options = { zoomable: true,
-                                start: new Date(1958, 1, 1),
-                                end: new Date(2018, 1 ,1),
-                              };    //
-                var prezTimeline = new vis.Timeline(container, items,
-                                                    groups, options);
-            },
-            error: function (err) {
-                console.log('Error', err);
-                if (err.status === 0) {
-                    alert('Failed to load timeline.json. Idek.');
-                } else {
-                    alert('Fail.');
-                }
-            }
-        });
+          var container = $('#timeline')[0];
+          var items = new vis.DataSet(staticData.items);
+          console.log(items);
+          var groups = new vis.DataSet(staticData.groups)
+          var options = { zoomable: true,
+                          start: new Date(1958, 1, 1),
+                          end: new Date(2018, 1 ,1),
+                        };    //
+          var prezTimeline = new vis.Timeline(container, items,
+                                              groups, options);
+
 
     </script>
 

@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, render_template
+from flask import Flask, json, jsonify, render_template
 # from flask_debugtoolbar import DebugToolbarExtension
 from model import db, connect_to_db
 from utilities import make_nodes_and_links, graph_data
@@ -11,13 +11,20 @@ app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'whatevs')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-@app.route('/data.json')
+@app.route('/forceData')
 def get_force_data():
     """Turn the links list of sources & targets into JSON."""
 
     nodes, links = make_nodes_and_links()
+    forceData = {'links': links, 'nodes': nodes}
 
-    return jsonify({'links': links, 'nodes': nodes})
+    response = app.response_class(
+        response=json.dumps(forceData),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
 
 
 @app.route('/')
