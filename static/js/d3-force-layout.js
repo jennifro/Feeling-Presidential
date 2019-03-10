@@ -1434,10 +1434,10 @@ var svg = d3.select("#force").append('svg')
     .attr('width', width)
     .attr('height', height);
 
-var force = d3.layout.force()
-  .size([width, height])
-  .nodes(nodes)
-  .links(links);
+// var force = d3.layout.force()
+//   .size([width, height])
+//   .nodes(nodes)
+//   .links(links);
 
 
 var simulation = d3.forceSimulation()
@@ -1484,7 +1484,7 @@ var linkColor = {
 };
 
 var link = svg.append("g").selectAll("line")
-    .data(graph.links)
+    .data(links)
     .enter().append("line")
     .attr("class", function(d) { return "link " + d.type; })
     .style('stroke-width', function(d) { return linkWidth[d.type]; })
@@ -1494,7 +1494,7 @@ var link = svg.append("g").selectAll("line")
 var node = svg.append("g")
     .attr("class", "nodes")
     .selectAll("circle")
-    .data(graph.nodes)
+    .data(nodes)
     .enter().append("circle")
     .attr("r", function(d) { return sizes[d.group]; })
     .attr("fill", function(d) { return cirColor[d.group]; })
@@ -1508,7 +1508,7 @@ node.append("title")
     .text(function(d) { return d.id; });
 
 var text = svg.append("g").selectAll("text")
-    .data(graph.nodes)
+    .data(nodes)
     .enter().append("text")
     .attr("dx", 5)
     .attr("dy", ".31em")
@@ -1526,11 +1526,11 @@ var text = svg.append("g").selectAll("text")
     //   .attr("height", "24px");
 
 simulation
-    .nodes(graph.nodes)
+    .nodes(nodes)
     .on("tick", ticked);
 
 simulation.force("link")
-    .links(graph.links);
+    .links(links);
 
 
 function ticked() {
